@@ -16,6 +16,7 @@ return {
 			"cljoly/telescope-repo.nvim",
 			"stevearc/aerial.nvim",
 			"nvim-telescope/telescope-frecency.nvim",
+			"debugloop/telescope-undo.nvim",
 			"molecule-man/telescope-menufacture",
 			"kkharji/sqlite.lua",
 		},
@@ -33,6 +34,7 @@ return {
             { "<leader>tb", function() require("telescope.builtin").current_buffer_fuzzy_find() end,                     desc = "Buffer", },
             { "<leader>ta", "<cmd>Telescope aerial<cr>",                                                                 desc = "Aerial Code Outline" },
             { "<leader>zc", function() require("telescope.builtin").colorscheme({ enable_preview = true }) end,          desc = "Colorscheme", },
+            { "<leader>U",  "<cmd>Telescope undo<cr>",                                                                   desc = "Undo" },
         },
 		config = function(_, _)
 			local telescope = require("telescope")
@@ -94,6 +96,25 @@ return {
 						list = {
 							search_dirs = {
 								"~/projects/",
+							},
+						},
+					},
+					undo = {
+						side_by_side = true,
+						layout_strategy = "vertical",
+						layout_config = {
+							preview_height = 0.8,
+						},
+						mappings = {
+							i = {
+								-- IMPORTANT: Note that telescope-undo must be available when telescope is configured if
+								-- you want to replicate these defaults and use the following actions. This means
+								-- installing as a dependency of telescope in it's `requirements` and loading this
+								-- extension from there instead of having the separate plugin definition as outlined
+								-- above.
+								["<cr>"] = require("telescope-undo.actions").yank_additions,
+								["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+								["<C-cr>"] = require("telescope-undo.actions").restore,
 							},
 						},
 					},
