@@ -6,11 +6,12 @@ return {
 	"tpope/vim-abolish",
 	{
 		"zbirenbaum/copilot.lua",
+		lazy = false,
 		cmd = "Copilot",
 		build = ":Copilot auth",
 		opts = {
 			suggestion = {
-				enabled = true,
+				enabled = false,
 				auto_trigger = true,
 				debounce = 75,
 				keymap = {
@@ -22,7 +23,7 @@ return {
 					dismiss = "<C-]>",
 				},
 				panel = {
-					enabled = true,
+					enabled = false,
 					auto_refresh = true,
 					keymap = {
 						jump_prev = "<A-b>",
@@ -43,6 +44,14 @@ return {
 				},
 			},
 		},
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		dependencies = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+		lazy = false,
 	},
 	{ "tpope/vim-repeat", event = "VeryLazy" },
 	{ "nacro90/numb.nvim", event = "BufReadPre", config = true },

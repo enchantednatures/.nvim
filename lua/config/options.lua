@@ -83,3 +83,5 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
