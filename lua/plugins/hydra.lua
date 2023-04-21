@@ -6,17 +6,17 @@ local function quick_menu()
 		hint = [[
         Quick Menu
 ^
-_f_: Show Terminal (float)      
+_f_: Show Terminal (float)
 _v_: Open Terminal (vertical)Commands
 _h_: Open Terminal (horizontal)
 _x_: Open Quickfix
 _l_: Open Location List
-_s_: Buffer Fuzzy Search        
-_o_: Open Symbols Outline      
-_t_: Show Help Tags            
+_s_: Buffer Fuzzy Search
+_o_: Open Symbols Outline
+_t_: Show Help Tags
 _k_: Show Keymaps
 _c_: Show Vim Commands
-_m_: Show Man Pages            
+_m_: Show Man Pages
 ^
 ^ ^  _q_/_<Esc>_: Exit Hydra
     ]],
@@ -34,7 +34,11 @@ _m_: Show Man Pages
 		heads = {
 			{ "t", cmd("Telescope help_tags"), { desc = "Open Help Tags", silent = true } },
 			{ "k", ":lua require('telescope.builtin').keymaps()<CR>", { desc = "Open Neovim Keymaps", silent = true } },
-			{ "c", cmd("Telescope commands"), { desc = "Open Available Telescope Commands", silent = true } },
+			{
+				"c",
+				cmd("Telescope commands"),
+				{ desc = "Open Available Telescope Commands", silent = true },
+			},
 			{ "m", cmd("Telescope man_pages"), { desc = "Opens Man Pages", silent = true } },
 
 			{
@@ -42,15 +46,17 @@ _m_: Show Man Pages
 				cmd("Telescope current_buffer_fuzzy_find skip_empty_lines=true"),
 				{ desc = "Fuzzy find in current buffer", silent = true },
 			},
-			{ "o", cmd("Telescope aerial"), { desc = "Opens Symbols Outline", exit = true, silent = true } },
+			{
+				"o",
+				cmd("Telescope aerial"),
+				{ desc = "Opens Symbols Outline", exit = true, silent = true },
+			},
 
 			{ "x", cmd("TroubleToggle quickfix"), { desc = "Opens Quickfix", silent = true } },
 			{ "l", cmd("TroubleToggle loclist"), { desc = "Opens Location List", silent = true } },
-
 			{ "f", cmd("ToggleTerm direction=float"), { desc = "Floating Terminal", silent = true } },
 			{ "v", cmd("ToggleTerm direction=vertical"), { desc = "Vertical Terminal", silent = true } },
 			{ "h", cmd("ToggleTerm direction=horizontal"), { desc = "Horizontal Terminal", silent = true } },
-
 			{ "q", nil, { desc = "quit", exit = true, nowait = true } },
 			{ "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
 		},
@@ -61,7 +67,7 @@ local function gitsigns_menu()
 
 	local hint = [[
  _J_: Next hunk   _s_: Stage Hunk        _d_: Show Deleted   _b_: Blame Line
- _K_: Prev hunk   _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full 
+ _K_: Prev hunk   _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full
  ^ ^              _S_: Stage Buffer      ^ ^                 _/_: Show Base File
  ^
  ^ ^              _<Enter>_: Neogit              _q_: Exit
@@ -152,12 +158,12 @@ local function dap_menu()
  _c_: Continue                      _C_: Conditional Breakpoint
  _b_: Step Back                     _U_: Toggle UI
  _d_: Disconnect                    _S_: Scopes
- _e_: Evaluate                      _X_: Close 
- _g_: Get Session                   _i_: Step Into 
- _h_: Hover Variables               _o_: Step Over 
+ _e_: Evaluate                      _X_: Close
+ _g_: Get Session                   _i_: Step Into
+ _h_: Hover Variables               _o_: Step Over
  _r_: Toggle REPL                   _u_: Step Out
- _x_: Terminate                     _p_: Pause     
- ^ ^               _q_: Quit 
+ _x_: Terminate                     _p_: Pause
+ ^ ^               _q_: Quit
 ]]
 
 	return {
@@ -173,40 +179,50 @@ local function dap_menu()
 		},
 		mode = "n",
 		body = "<M-d>",
-    -- stylua: ignore
-    heads = {
-      { "C", function() dap.set_breakpoint(vim.fn.input "[Condition] > ") end, desc = "Conditional Breakpoint", },
-      { "E", function() dapui.eval(vim.fn.input "[Expression] > ") end, desc = "Evaluate Input", },
-      { "R", function() dap.run_to_cursor() end, desc = "Run to Cursor", },
-      { "S", function() dap_widgets.scopes() end, desc = "Scopes", },
-      { "U", function() dapui.toggle() end, desc = "Toggle UI", },
-      { "X", function() dap.close() end, desc = "Quit", },
-      { "b", function() dap.step_back() end, desc = "Step Back", },
-      { "c", function() dap.continue() end, desc = "Continue", },
-      { "d", function() dap.disconnect() end, desc = "Disconnect", },
-      { "e", function() dapui.eval() end, mode = {"n", "v"}, desc = "Evaluate", },
-      { "g", function() dap.session() end, desc = "Get Session", },
-      { "h", function() dap_widgets.hover() end, desc = "Hover Variables", },
-      { "i", function() dap.step_into() end, desc = "Step Into", },
-      { "o", function() dap.step_over() end, desc = "Step Over", },
-      { "p", function() dap.pause.toggle() end, desc = "Pause", },
-      { "r", function() dap.repl.toggle() end, desc = "Toggle REPL", },
-      { "s", function() dap.continue() end, desc = "Start", },
-      { "t", function() dap.toggle_breakpoint() end, desc = "Toggle Breakpoint", },
-      { "u", function() dap.step_out() end, desc = "Step Out", },
-      { "x", function() dap.terminate() end, desc = "Terminate", },
-      { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
-    },
+        -- stylua: ignore
+        heads = {
+            { "C", function() dap.set_breakpoint(vim.fn.input "[Condition] > ") end, desc = "Conditional Breakpoint", },
+            { "E", function() dapui.eval(vim.fn.input "[Expression] > ") end,        desc = "Evaluate Input", },
+            { "R", function() dap.run_to_cursor() end,                               desc = "Run to Cursor", },
+            { "S", function() dap_widgets.scopes() end,                              desc = "Scopes", },
+            { "U", function() dapui.toggle() end,                                    desc = "Toggle UI", },
+            { "X", function() dap.close() end,                                       desc = "Quit", },
+            { "b", function() dap.step_back() end,                                   desc = "Step Back", },
+            { "c", function() dap.continue() end,                                    desc = "Continue", },
+            { "d", function() dap.disconnect() end,                                  desc = "Disconnect", },
+            {
+                "e",
+                function() dapui.eval() end,
+                mode = { "n", "v" },
+                desc =
+                "Evaluate",
+            },
+            { "g", function() dap.session() end,           desc = "Get Session", },
+            { "h", function() dap_widgets.hover() end,     desc = "Hover Variables", },
+            { "i", function() dap.step_into() end,         desc = "Step Into", },
+            { "o", function() dap.step_over() end,         desc = "Step Over", },
+            { "p", function() dap.pause.toggle() end,      desc = "Pause", },
+            { "r", function() dap.repl.toggle() end,       desc = "Toggle REPL", },
+            { "s", function() dap.continue() end,          desc = "Start", },
+            { "t", function() dap.toggle_breakpoint() end, desc = "Toggle Breakpoint", },
+            { "u", function() dap.step_out() end,          desc = "Step Out", },
+            { "x", function() dap.terminate() end,         desc = "Terminate", },
+            { "q", nil, {
+                exit = true,
+                nowait = true,
+                desc = "Exit"
+            } },
+        },
 	}
 end
 
 local function windows()
 	local hint = [[
- _H_: Move Window left              _K_: Move window up                 
- _J_: Move Window down              _L_: Move Window right              
+ _H_: Move Window left              _K_: Move window up
+ _J_: Move Window down              _L_: Move Window right
 
- _<C-j>_: Move Window down              _L_: Move Window right              
- ^ ^               _q_: Quit 
+ _<C-j>_: Move Window down              _L_: Move Window right
+ ^ ^               _q_: Quit
 ]]
 	return {
 		name = "Change / Resize Window",
@@ -248,6 +264,70 @@ local function windows()
 	}
 end
 
+local function telescope_hydra()
+	local cmd = require("hydra.keymap-util").cmd
+	return {
+		name = "Telescope",
+		mode = { "n" },
+		hint = [[
+        Telescope
+^
+_f_: Find Files                 _c_: Common (FRecent)
+_o_: Open Buffers               _g_: Git Repos
+_h_: Help                       _p_: Projects
+_w_: Workspace                  _r_: Recents
+_b_: Buffer                     _a_: Aerial Code Outline
+_z_: Colorscheme                _U_: Undo
+^ ^                 _q_: Quit
+    ]],
+		config = {
+			color = "blue",
+			invoke_on_body = true,
+			hint = {
+				type = "window",
+				position = "bottom",
+				border = "rounded",
+				show_name = true,
+			},
+		},
+		body = "<M-s>",
+		heads = {
+			{ "f", cmd("lua require('utils').find_files()"), { desc = "Find Files", silent = true } },
+			{
+				"c",
+				cmd("Telescope frecency theme=dropdown previewer=false"),
+				{ desc = "Common (FRecent)", silent = true },
+			},
+			{ "o", cmd("Telescope buffers"), { desc = "Open Buffers", silent = true } },
+			{ "g", cmd("Telescope repo list"), { desc = "Git Repos", silent = true } },
+			{ "h", cmd("Telescope help_tags"), { desc = "Help", silent = true } },
+			{
+				"p",
+				cmd("lua require('telescope').extensions.project.project { display_type = 'minimal' }"),
+				{ desc = "Projects", silent = true },
+			},
+			{
+				"w",
+				cmd("lua require('telescope').extensions.menufacture.live_grep()"),
+				{ desc = "Workspace", silent = true },
+			},
+			{ "r", cmd("Telescope oldfiles"), { desc = "Recents", silent = true } },
+			{
+				"b",
+				cmd("lua require('telescope.builtin').current_buffer_fuzzy_find()"),
+				{ desc = "Buffer", silent = true },
+			},
+			{ "a", cmd("Telescope aerial"), { desc = "Aerial Code Outline", silent = true } },
+			{
+				"z",
+				cmd("lua require('telescope.builtin').colorscheme({ enable_preview = true })"),
+				{ desc = "Colorscheme", silent = true },
+			},
+			{ "U", cmd("Telescope undo"), { desc = "Undo", silent = true } },
+			{ "q", nil, { desc = "Quit", exit = true, nowait = true } },
+		},
+	}
+end
 return {
 	{
 		"anuvyklack/hydra.nvim",
@@ -257,6 +337,7 @@ return {
 			Hydra(gitsigns_menu())
 			Hydra(quick_menu())
 			Hydra(dap_menu())
+			Hydra(telescope_hydra())
 			Hydra(windows())
 		end,
 	},

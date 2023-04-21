@@ -96,6 +96,7 @@ return {
 						list = {
 							search_dirs = {
 								"~/projects/",
+								"~/work/",
 							},
 						},
 					},
