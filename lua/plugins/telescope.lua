@@ -35,6 +35,8 @@ return {
             { "<leader>ta", "<cmd>Telescope aerial<cr>",                                                                 desc = "Aerial Code Outline" },
             { "<leader>zc", function() require("telescope.builtin").colorscheme({ enable_preview = true }) end,          desc = "Colorscheme", },
             { "<leader>U",  "<cmd>Telescope undo<cr>",                                                                   desc = "Undo" },
+            {"<leader>gc",'<leader>gc', function ()  require("telescope").extensions.conventional_commits.conventional_commits()   end,  desc = "Conventional Commit"}
+
         },
 		config = function(_, _)
 			local telescope = require("telescope")
@@ -119,17 +121,7 @@ return {
 							},
 						},
 					},
-					conventional_commits = {
-						action = function(entry)
-							-- entry = {
-							--     display = "feat       A new feature",
-							--     index = 7,
-							--     ordinal = "feat",
-							--     value = feat"
-							-- }
-							print(vim.inspect(entry))
-						end,
-					},
+					conventional_commits = {},
 				},
 			}
 			telescope.setup(opts)
