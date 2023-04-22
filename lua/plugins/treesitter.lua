@@ -28,7 +28,6 @@ return {
 			sync_install = false,
 			ensure_installed = {
 				"bash",
-				"dockerfile",
 				"c_sharp",
 				"css",
 				"dockerfile",
@@ -48,7 +47,6 @@ return {
 				"proto",
 				"python",
 				"query",
-				"regex",
 				"regex",
 				"sql",
 				"tsx",
