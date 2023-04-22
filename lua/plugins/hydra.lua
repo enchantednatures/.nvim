@@ -1,3 +1,50 @@
+local function telekasten_hydra()
+	local cmd = require("hydra.keymap-util").cmd
+	return {
+		name = "Telekasten",
+		mode = { "n" },
+		hint = [[
+      Telekasten Zettelkasten
+^
+_p_: Telekasten Panel
+_f_: Find Notes
+_g_: Search Notes
+_d_: Go to Today
+_z_: Follow Link
+_n_: New Note
+_c_: Show Calendar
+_b_: Show Backlinks
+_I_: Insert Image Link
+^
+^ ^  _q_/_<Esc>_: Exit Hydra
+    ]],
+		config = {
+			color = "blue",
+			invoke_on_body = true,
+			hint = {
+				type = "window",
+				position = "bottom",
+				border = "rounded",
+				show_name = true,
+			},
+		},
+		body = "<leader>z",
+		heads = {
+			{ "p", cmd("Telekasten panel"), { desc = "Telekasten Panel", silent = true } },
+			{ "f", cmd("Telekasten find_notes"), { desc = "Find Notes", silent = true } },
+			{ "g", cmd("Telekasten search_notes"), { desc = "Search Notes", silent = true } },
+			{ "d", cmd("Telekasten goto_today"), { desc = "Go to Today", silent = true } },
+			{ "z", cmd("Telekasten follow_link"), { desc = "Follow Link", silent = true } },
+			{ "n", cmd("Telekasten new_note"), { desc = "New Note", silent = true } },
+			{ "c", cmd("Telekasten show_calendar"), { desc = "Show Calendar", silent = true } },
+			{ "b", cmd("Telekasten show_backlinks"), { desc = "Show Backlinks", silent = true } },
+			{ "I", cmd("Telekasten insert_img_link"), { desc = "Insert Image Link", silent = true } },
+			{ "q", nil, { desc = "quit", exit = true, nowait = true } },
+			{ "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
+		},
+	}
+end
+
 local function quick_menu()
 	local cmd = require("hydra.keymap-util").cmd
 	return {
@@ -30,7 +77,7 @@ _m_: Show Man Pages
 				show_name = true,
 			},
 		},
-		body = "<A-q>",
+		body = "<leader>qm",
 		heads = {
 			{ "t", cmd("Telescope help_tags"), { desc = "Open Help Tags", silent = true } },
 			{ "k", ":lua require('telescope.builtin').keymaps()<CR>", { desc = "Open Neovim Keymaps", silent = true } },
@@ -178,7 +225,7 @@ local function dap_menu()
 			},
 		},
 		mode = "n",
-		body = "<M-d>",
+		body = "<leader>dd",
         -- stylua: ignore
         heads = {
             { "C", function() dap.set_breakpoint(vim.fn.input "[Condition] > ") end, desc = "Conditional Breakpoint", },
@@ -216,54 +263,6 @@ local function dap_menu()
 	}
 end
 
-local function windows()
-	local hint = [[
- _H_: Move Window left              _K_: Move window up
- _J_: Move Window down              _L_: Move Window right
-
- _<C-j>_: Move Window down              _L_: Move Window right
- ^ ^               _q_: Quit
-]]
-	return {
-		name = "Change / Resize Window",
-		hint = hint,
-		mode = { "n" },
-		body = "<M-w>",
-		config = {
-			-- color = "pink",
-			hint = {
-				border = "rounded",
-				position = "bottom",
-			},
-		},
-		heads = {
-			-- move between windows
-			{ "<C-h>", "<C-w>h" },
-			{ "<C-j>", "<C-w>j" },
-			{ "<C-k>", "<C-w>k" },
-			{ "<C-l>", "<C-w>l" },
-
-			-- resizing window
-			{ "H", "<C-w>3<" },
-			{ "L", "<C-w>3>" },
-			{ "K", "<C-w>2+" },
-			{ "J", "<C-w>2-" },
-
-			-- equalize window sizes
-			{ "e", "<C-w>=" },
-
-			-- close active window
-			{ "Q", ":q<cr>" },
-			{ "<C-q>", ":q<cr>" },
-
-			-- exit this Hydra
-			{ "q", nil, { exit = true, nowait = true } },
-			{ ";", nil, { exit = true, nowait = true } },
-			{ "<Esc>", nil, { exit = true, nowait = true } },
-		},
-	}
-end
-
 local function telescope_hydra()
 	local cmd = require("hydra.keymap-util").cmd
 	return {
@@ -278,6 +277,7 @@ _h_: Help                       _p_: Projects
 _w_: Workspace                  _r_: Recents
 _b_: Buffer                     _a_: Aerial Code Outline
 _z_: Colorscheme                _U_: Undo
+_k_: Keymaps
 ^ ^                 _q_: Quit
     ]],
 		config = {
@@ -290,7 +290,7 @@ _z_: Colorscheme                _U_: Undo
 				show_name = true,
 			},
 		},
-		body = "<M-s>",
+		body = "<leader>tt",
 		heads = {
 			{ "f", cmd("lua require('utils').find_files()"), { desc = "Find Files", silent = true } },
 			{
@@ -300,6 +300,7 @@ _z_: Colorscheme                _U_: Undo
 			},
 			{ "o", cmd("Telescope buffers"), { desc = "Open Buffers", silent = true } },
 			{ "g", cmd("Telescope repo list"), { desc = "Git Repos", silent = true } },
+			{ "k", ":lua require('telescope.builtin').keymaps()<CR>", { desc = "Open Neovim Keymaps", silent = true } },
 			{ "h", cmd("Telescope help_tags"), { desc = "Help", silent = true } },
 			{
 				"p",
@@ -337,8 +338,8 @@ return {
 			Hydra(gitsigns_menu())
 			Hydra(quick_menu())
 			Hydra(dap_menu())
+			Hydra(telekasten_hydra())
 			Hydra(telescope_hydra())
-			Hydra(windows())
 		end,
 	},
 }
