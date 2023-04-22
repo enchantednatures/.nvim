@@ -115,7 +115,7 @@ local function gitsigns_menu()
 	local hint = [[
  _J_: Next hunk             _s_: Stage Hunk        _d_: Show Deleted   _b_: Blame Line
  _K_: Prev hunk             _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full
- _c_: Conventional Commits  _S_: Stage Buffer      ^ ^                 _/_: Show Base File
+ _c_: Conventional Commits  _S_: Stage Buffer      _P_: Git Push       _/_: Show Base File
  ^
  ^ ^              _<Enter>_: Neogit              _q_: Exit
 ]]
@@ -187,6 +187,7 @@ local function gitsigns_menu()
 				end,
 				{ desc = "Conventional Commit" },
 			},
+			{ "P", ":Git push<CR>", { desc = "Blame" } },
 			{ "b", gitsigns.blame_line, { desc = "Blame" } },
 			{
 				"B",
