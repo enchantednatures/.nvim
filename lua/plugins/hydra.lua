@@ -113,9 +113,9 @@ local function gitsigns_menu()
 	local gitsigns = require("gitsigns")
 
 	local hint = [[
- _J_: Next hunk   _s_: Stage Hunk        _d_: Show Deleted   _b_: Blame Line
- _K_: Prev hunk   _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full
- ^ ^              _S_: Stage Buffer      ^ ^                 _/_: Show Base File
+ _J_: Next hunk             _s_: Stage Hunk        _d_: Show Deleted   _b_: Blame Line
+ _K_: Prev hunk             _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full
+ _c_: Conventional Commits  _S_: Stage Buffer      ^ ^                 _/_: Show Base File
  ^
  ^ ^              _<Enter>_: Neogit              _q_: Exit
 ]]
@@ -180,6 +180,13 @@ local function gitsigns_menu()
 			{ "S", gitsigns.stage_buffer, { desc = "Stage Buffer" } },
 			{ "p", gitsigns.preview_hunk, { desc = "Preview Hunk" } },
 			{ "d", gitsigns.toggle_deleted, { nowait = true, desc = "Toggle Deleted" } },
+			{
+				"c",
+				function()
+					require("telescope").extensions.conventional_commits.conventional_commits()
+				end,
+				{ desc = "Conventional Commit" },
+			},
 			{ "b", gitsigns.blame_line, { desc = "Blame" } },
 			{
 				"B",
