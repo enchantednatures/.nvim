@@ -4,4 +4,5 @@ return {
 	{ "folke/zen-mode.nvim", opts = {}, cmd = { "ZenMode" } },
 	{ "dhruvasagar/vim-table-mode", ft = { "markdown", "org", "norg" } },
 	{ "lukas-reineke/headlines.nvim", opts = {}, ft = { "markdown", "org", "norg" } },
+	{ "renerocksai/telekasten.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, lazy = false },
 }
