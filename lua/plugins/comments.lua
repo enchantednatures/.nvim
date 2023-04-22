@@ -2,6 +2,7 @@ return {
 	{
 		"numToStr/Comment.nvim",
 		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+		lazy = false,
 		keys = { "gc", "gcc", "gbc" },
 		config = function(_, _)
 			local opts = {
