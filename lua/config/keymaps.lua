@@ -71,6 +71,19 @@ keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
 keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 keymap(
+	"v",
+	"<leader>b64",
+	":<C-u>lua require('utils.encode').encode()<CR>",
+	{ noremap = true, silent = true, desc = "Replace selection with base64 encoded text" }
+)
+
+keymap(
+	"v",
+	"<leader>d64",
+	":<C-u>lua require('utils.decode').decode()<CR>",
+	{ noremap = true, silent = true, desc = "decode base64" }
+)
+keymap(
 	"n",
 	"<leader>s",
 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
