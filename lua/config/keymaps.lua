@@ -70,7 +70,12 @@ keymap("n", "<C-j>", "<cmd>cprev<CR>zz")
 keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
 keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+keymap(
+	"n",
+	"<leader>s",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Search and replace word under cursor" }
+)
 keymap("n", "<M-x>", "<cmd>!chmod +x %<CR>", { silent = true })
 -- keymap("n", "<leader>w", "<cmd>w <CR>")
 keymap("n", "<leader>sv", ":source $MYVIMRC<CR>", { silent = true })
