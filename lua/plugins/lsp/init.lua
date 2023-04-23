@@ -171,6 +171,7 @@ return {
 			nls.setup({
 				sources = {
 					nls.builtins.formatting.stylua,
+					nls.builtins.formatting.prettierd,
 					nls.builtins.diagnostics.ruff.with({ extra_args = { "--max-line-length=180" } }),
 				},
 			})
