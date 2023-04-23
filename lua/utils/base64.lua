@@ -1,28 +1,22 @@
 local M = {}
 
-local function system_base64(action, input)
-	if action == "encode" or action == "decode" then
-		local cmd = (action == "encode") and "base64" or "base64 -d"
-		local output = vim.fn.system(cmd, input)
+function M.encode(input)
+	local output, _, err = vim.fn.systemlist("echo '" .. input:gsub("'", [['"'"']]) .. "' | base64 -w 0")
 
-		if vim.v.shell_error ~= 0 then
-			print("Error during base64 " .. action)
-			return nil
-		end
-
-		return output
-	else
-		print("Invalid action: " .. action)
+	if err and err ~= "" then
+		print("Error decoding base64: " .. err)
 		return nil
 	end
-end
-
-function M.encode(input)
-	return system_base64("encode", input)
+	return table.concat(output, "\n")
 end
 
 function M.decode(input)
-	return system_base64("decode", input)
+	local output, _, err = vim.fn.systemlist("echo '" .. input:gsub("'", [['"'"']]) .. "' | base64 -d")
+	if err and err ~= "" then
+		print("Error decoding base64: " .. err)
+		return nil
+	end
+	return table.concat(output, "\n")
 end
 
 return M

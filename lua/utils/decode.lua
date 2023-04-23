@@ -5,10 +5,10 @@ function M.decode()
 	local base64 = require("utils.base64")
 
 	local selected_text = visual_selection.get()
-	local decoded_text, err = base64.decode(selected_text)
+	local decoded_text = base64.decode(selected_text)
 
 	if not decoded_text then
-		print("Error decoding base64: " .. err)
+		print("Error decoding base64")
 		return
 	end
 
