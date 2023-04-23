@@ -12,14 +12,15 @@ end
 
 function M.replace(replacement)
 	local _, start_row, start_col, _ = unpack(vim.fn.getpos("'<"))
-	local _, end_row, _, _ = unpack(vim.fn.getpos("'>"))
+	local _, end_row, end_col, _ = unpack(vim.fn.getpos("'>"))
 	vim.api.nvim_exec(
 		[[
         normal! gv"xy
     ]],
 		false
 	)
-	vim.api.nvim_buf_set_text(0, start_row - 1, start_col - 1, end_row - 1, end_col, { replacement })
+	local replacement_lines = vim.split(replacement, "\n", true)
+	vim.api.nvim_buf_set_text(0, start_row - 1, start_col - 1, end_row - 1, tonumber(end_col), replacement_lines)
 end
 
 return M
