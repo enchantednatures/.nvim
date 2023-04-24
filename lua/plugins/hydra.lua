@@ -117,7 +117,7 @@ local function gitsigns_menu()
  _K_: Prev hunk             _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full
  _c_: Conventional Commits  _S_: Stage Buffer      _P_: Git Push       _/_: Show Base File
  ^
- ^ ^              _<Enter>_: Neogit              _q_: Exit
+ ^ ^              _<Enter>_: LazyGit              _q_: Exit
 ]]
 
 	return {
@@ -197,7 +197,7 @@ local function gitsigns_menu()
 				{ desc = "Blame Show Full" },
 			},
 			{ "/", gitsigns.show, { exit = true, desc = "Show Base File" } }, -- show the base of the file
-			{ "<Enter>", "<Cmd>Neogit<CR>", { exit = true, desc = "Neogit" } },
+			{ "<Enter>", "<Cmd>LazyGit<CR>", { exit = true, desc = "LazyGit" } },
 			{ "q", nil, { exit = true, nowait = true, desc = "Exit" } },
 		},
 	}
