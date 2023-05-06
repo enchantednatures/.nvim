@@ -145,7 +145,9 @@ return {
 		opts = {
 			ensure_installed = {
 				"stylua",
-				"ruff",
+				"rust-analyzer",
+				"sqlls",
+				"sqlfmt",
 				"lua-language-server",
 				"debugpy",
 				"codelldb",

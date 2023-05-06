@@ -49,7 +49,7 @@ keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
 
 keymap("n", "<Leader>wt", [[:%s/\s\+$//e<cr>]])
-
+keymap("n", "<leader>wq", ":update<CR>:quit<CR>")
 -- greatest remap ever
 keymap("x", "<leader>p", [["_dP]])
 

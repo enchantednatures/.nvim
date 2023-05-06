@@ -31,17 +31,22 @@ return {
 				rust_analyzer = function(_, opts)
 					local lsp_utils = require("plugins.lsp.utils")
 					lsp_utils.on_attach(function(client, buffer)
-            -- stylua: ignore
-            if client.name == "rust_analyzer" then
-              vim.keymap.set("n", "<leader>cR", "<cmd>RustRunnables<cr>", { buffer = buffer, desc = "Runnables" })
-              vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end, { buffer = buffer, desc = "Code Lens" })
-            end
+                        -- stylua: ignore
+                        if client.name == "rust_analyzer" then
+                            vim.keymap.set("n", "<leader>cR", "<cmd>RustRunnables<cr>",
+                                { buffer = buffer, desc = "Runnables" })
+                            vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end,
+                                { buffer = buffer, desc = "Code Lens" })
+                        end
 					end)
+
+					local ih = require("inlay-hints")
 
 					require("rust-tools").setup({
 						tools = {
 							hover_actions = { border = "solid" },
 							on_initialized = function()
+								ih.set_all()
 								vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
 									pattern = { "*.rs" },
 									callback = function()
@@ -63,6 +68,9 @@ return {
 	{
 		"mfussenegger/nvim-dap",
 		opts = {
+			on_attach = function(c, b)
+				ih.on_attach(c, b)
+			end,
 			setup = {
 				codelldb = function()
 					local dap = require("dap")

@@ -81,6 +81,18 @@ return {
 		end,
 	},
 	{
+		"simrat39/inlay-hints.nvim",
+		config = function()
+			require("inlay_hints").setup({
+				highlight = "Comment",
+				prefix = " > ",
+				aligned = false,
+				only_current_line = false,
+				enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
+			})
+		end,
+	},
+	{
 		"rcarriga/nvim-notify",
 		event = "VeryLazy",
 		opts = {
