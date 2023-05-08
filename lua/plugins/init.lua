@@ -4,55 +4,7 @@ return {
 	"nvim-tree/nvim-web-devicons",
 	"f-person/git-blame.nvim",
 	"tpope/vim-abolish",
-	{
-		"zbirenbaum/copilot.lua",
-		lazy = false,
-		cmd = "Copilot",
-		build = ":Copilot auth",
-		opts = {
-			suggestion = {
-				enabled = false,
-				auto_trigger = true,
-				debounce = 75,
-				keymap = {
-					accept = "<A-l>",
-					accept_word = false,
-					accept_line = false,
-					next = "<A-]>",
-					prev = "<A-[>",
-					dismiss = "<C-]>",
-				},
-				panel = {
-					enabled = false,
-					auto_refresh = true,
-					keymap = {
-						jump_prev = "<A-b>",
-						jump_next = "<A-f>",
-						accept = "<CR>",
-						refresh = "gr",
-						open = "<A-s>",
-					},
-					layout = {
-						position = "bottom", -- | top | left | right
-						ratio = 0.4,
-					},
-				},
-				filetypes = {
-					["."] = true,
-					rust = true,
-					rs = true,
-				},
-			},
-		},
-	},
-	{
-		"zbirenbaum/copilot-cmp",
-		dependencies = { "copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-		lazy = false,
-	},
+
 	{ "tpope/vim-repeat", event = "VeryLazy" },
 	{ "nacro90/numb.nvim", event = "BufReadPre", config = true },
 	{
@@ -82,14 +34,18 @@ return {
 	},
 	{
 		"simrat39/inlay-hints.nvim",
-		config = function()
-			require("inlay_hints").setup({
-				highlight = "Comment",
-				prefix = " > ",
-				aligned = false,
-				only_current_line = false,
-				enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
-			})
+		opts = {
+			highlight = "Comment",
+			prefix = "     > ",
+			aligned = false,
+			only_current_line = false,
+			enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
+			eol = {
+				right_align = false,
+			},
+		},
+		config = function(_, opts)
+			require("inlay-hints").setup(opts)
 		end,
 	},
 	{
