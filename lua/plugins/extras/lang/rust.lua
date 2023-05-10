@@ -18,6 +18,9 @@ return {
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {
+							assist = {
+								importMergeBehavior = "full",
+							},
 							cargo = { allFeatures = true },
 							checkOnSave = {
 								command = "cargo clippy",
