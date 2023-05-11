@@ -7,6 +7,7 @@ return {
 			"hrsh7th/cmp-nvim-lua",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-buffer",
+			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"onsails/lspkind.nvim",
@@ -18,6 +19,7 @@ return {
 			local neogen = require("neogen")
 			local icons = require("config.icons")
 
+			local gh_issues = require("plugins.completion.gh_issues")
 			local has_words_before = function()
 				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
 					return false
@@ -54,7 +56,7 @@ return {
 							end
 						end,
 					}),
-					["<C-j>"] = cmp.mapping(function(fallback)
+					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
 						elseif luasnip.expand_or_jumpable() then
@@ -71,7 +73,7 @@ return {
 						"s",
 						"c",
 					}),
-					["<C-k>"] = cmp.mapping(function(fallback)
+					["<S-Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item()
 						elseif luasnip.jumpable(-1) then
@@ -119,17 +121,20 @@ return {
 						mode = "symbol", -- show only symbol annotations
 						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-						symbol_map = { Copilot = "" },
 						-- The function below will be called before any actual modifications from lspkind
 						-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+						symbol_map = { copilot = "" },
 						before = function(entry, item)
 							local max_width = 0
 							local source_names = {
-								Copilot = "",
+								copilot = "",
 								nvim_lsp = "(LSP)",
+								nvim_lsp_signature_help = "(Signature)",
 								path = "(Path)",
+								nvim_lua = "(vim)",
 								luasnip = "(Snippet)",
 								buffer = "(Buffer)",
+								gh_issues = "(Issue)",
 							}
 							local duplicates = {
 								buffer = 1,

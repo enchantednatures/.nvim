@@ -15,6 +15,8 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/cmp-nvim-lsp",
+			"simrat39/rust-tools.nvim",
+			"rust-lang/rust.vim",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			{
 				"SmiteshP/nvim-navbuddy",
@@ -42,8 +44,56 @@ return {
 					},
 				},
 				dockerls = {},
+				rust_analyzer = {
+					settings = {
+						["rust-analyzer"] = {
+							assist = {
+								importMergeBehavior = "full",
+							},
+							cargo = { allFeatures = true },
+							checkOnSave = {
+								command = "clippy",
+								extraArgs = { "--no-deps" },
+							},
+						},
+					},
+				},
 			},
 			setup = {
+				rust_analyzer = function(_, opts)
+					local lsp_utils = require("plugins.lsp.utils")
+					lsp_utils.on_attach(function(client, buffer)
+                        -- stylua: ignore
+                        if client.name == "rust_analyzer" then
+                            vim.keymap.set("n", "<leader>cR", "<cmd>RustRunnables<cr>",
+                                { buffer = buffer, desc = "Runnables" })
+                            vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end,
+                                { buffer = buffer, desc = "Code Lens" })
+                        end
+					end)
+
+					local ih = require("inlay-hints")
+
+					require("rust-tools").setup({
+						tools = {
+							hover_actions = { border = "solid" },
+							on_initialized = function()
+								ih.set_all()
+								vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
+									pattern = { "*.rs" },
+									callback = function()
+										vim.lsp.codelens.refresh()
+									end,
+								})
+							end,
+						},
+						server = opts,
+						dap = {
+							adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+						},
+					})
+					return true
+				end,
 				lua_ls = function(_, _)
 					local lsp_utils = require("plugins.lsp.utils")
 					lsp_utils.on_attach(function(client, buffer)
@@ -59,73 +109,7 @@ return {
 								full = vim.empty_dict(),
 								legend = {
 									tokenModifiers = { "static_symbol" },
-									tokenTypes = {
-										"comment",
-										"excluded_code",
-										"identifier",
-										"keyword",
-										"keyword_control",
-										"number",
-										"operator",
-										"operator_overloaded",
-										"preprocessor_keyword",
-										"string",
-										"whitespace",
-										"text",
-										"static_symbol",
-										"preprocessor_text",
-										"punctuation",
-										"string_verbatim",
-										"string_escape_character",
-										"class_name",
-										"delegate_name",
-										"enum_name",
-										"interface_name",
-										"module_name",
-										"struct_name",
-										"type_parameter_name",
-										"field_name",
-										"enum_member_name",
-										"constant_name",
-										"local_name",
-										"parameter_name",
-										"method_name",
-										"extension_method_name",
-										"property_name",
-										"event_name",
-										"namespace_name",
-										"label_name",
-										"xml_doc_comment_attribute_name",
-										"xml_doc_comment_attribute_quotes",
-										"xml_doc_comment_attribute_value",
-										"xml_doc_comment_cdata_section",
-										"xml_doc_comment_comment",
-										"xml_doc_comment_delimiter",
-										"xml_doc_comment_entity_reference",
-										"xml_doc_comment_name",
-										"xml_doc_comment_processing_instruction",
-										"xml_doc_comment_text",
-										"xml_literal_attribute_name",
-										"xml_literal_attribute_quotes",
-										"xml_literal_attribute_value",
-										"xml_literal_cdata_section",
-										"xml_literal_comment",
-										"xml_literal_delimiter",
-										"xml_literal_embedded_expression",
-										"xml_literal_entity_reference",
-										"xml_literal_name",
-										"xml_literal_processing_instruction",
-										"xml_literal_text",
-										"regex_comment",
-										"regex_character_class",
-										"regex_anchor",
-										"regex_quantifier",
-										"regex_grouping",
-										"regex_alternation",
-										"regex_text",
-										"regex_self_escaped_character",
-										"regex_other_escape",
-									},
+									tokenTypes = {},
 								},
 								range = true,
 							}
