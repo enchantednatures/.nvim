@@ -56,6 +56,10 @@ return {
 							end
 						end,
 					}),
+					["<C-y>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Insert,
+						select = true,
+					}),
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
@@ -91,9 +95,10 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "copilot", group_index = 2 },
+					{ name = "gh_issues", group_index = 2 },
 					{ name = "nvim_lsp_signature_help", group_index = 2 },
-					{ name = "nvim_lsp", group_index = 2 },
 					{ name = "nvim_lua", group_index = 2 },
+					{ name = "nvim_lsp", group_index = 2 },
 					{ name = "luasnip", group_index = 2 },
 					{ name = "buffer", group_index = 2, keyword_length = 5 },
 					{ name = "path", group_index = 2 },
@@ -107,6 +112,7 @@ return {
 						-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
 						cmp.config.compare.exact,
 						cmp.config.compare.score,
+						require("cmp-under-comparator").under,
 						cmp.config.compare.recently_used,
 						cmp.config.compare.locality,
 						cmp.config.compare.kind,
@@ -117,13 +123,19 @@ return {
 				},
 				formatting = {
 					fields = { "kind", "abbr", "menu" },
+					experimental = {
+						-- I like the new menu better! Nice work hrsh7th
+						native_menu = false,
+
+						-- Let's play with this for a day or two
+						ghost_text = false,
+					},
 					format = lspkind.cmp_format({
 						mode = "symbol", -- show only symbol annotations
 						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-						-- The function below will be called before any actual modifications from lspkind
-						-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
 						symbol_map = { copilot = "" },
+						-- deduplicate the entries before sending to the cmp
 						before = function(entry, item)
 							local max_width = 0
 							local source_names = {
@@ -136,6 +148,7 @@ return {
 								buffer = "(Buffer)",
 								gh_issues = "(Issue)",
 							}
+
 							local duplicates = {
 								buffer = 1,
 								path = 1,
