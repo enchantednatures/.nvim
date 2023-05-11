@@ -104,4 +104,5 @@ return {
             },
         },
 	},
+	{ "editorconfig/editorconfig-vim" },
 }
