@@ -14,6 +14,12 @@ return {
 					---Block-comment keymap
 					block = "gb",
 				},
+				mappings = {
+					---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+					basic = true,
+					---Extra mapping; `gco`, `gcO`, `gcA`
+					extra = true,
+				},
 			}
 			require("Comment").setup(opts)
 		end,
