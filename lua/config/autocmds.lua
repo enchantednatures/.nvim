@@ -42,6 +42,12 @@ local function toggle_hlsearch(char)
 end
 vim.on_key(toggle_hlsearch, ns)
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "*.sql", "*.mysql", "*.plsql" },
+	callback = function(_)
+		require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+	end,
+})
 -- windows to close
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {

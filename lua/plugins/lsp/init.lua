@@ -61,11 +61,12 @@ return {
 			},
 			setup = {
 				rust_analyzer = function(_, opts)
+					local rt = require("rust-tools")
 					local lsp_utils = require("plugins.lsp.utils")
 					lsp_utils.on_attach(function(client, buffer)
                         -- stylua: ignore
                         if client.name == "rust_analyzer" then
-                            vim.keymap.set("n", "<leader>cR", "<cmd>RustRunnables<cr>",
+                            vim.keymap.set("n", "<leader>cR", rt.runnables.runnables(),
                                 { buffer = buffer, desc = "Runnables" })
                             vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end,
                                 { buffer = buffer, desc = "Code Lens" })
@@ -74,7 +75,19 @@ return {
 
 					local ih = require("inlay-hints")
 
-					require("rust-tools").setup({
+					local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.9.1/"
+					local codelldb_path = extension_path .. "adapter/codelldb"
+					local liblldb_path = extension_path .. "lldb/lib/liblldb"
+					local this_os = vim.loop.os_uname().sysname
+
+					if this_os:find("Windows") then
+						codelldb_path = package_path .. "adapter\\codelldb.exe"
+						liblldb_path = package_path .. "lldb\\bin\\liblldb.dll"
+					else
+						-- The liblldb extension is .so for linux and .dylib for macOS
+						liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
+					end
+					rt.setup({
 						tools = {
 							hover_actions = { border = "solid" },
 							on_initialized = function()
