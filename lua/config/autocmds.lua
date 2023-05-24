@@ -1,4 +1,9 @@
 -- See `:help vim.highlight.on_yank()`
+--
+
+local function augroup(name)
+	return vim.api.nvim_create_augroup("nde_" .. name, { clear = true })
+end
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
@@ -50,6 +55,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 -- windows to close
 vim.api.nvim_create_autocmd("FileType", {
+	group = augroup("close_with_q"),
 	pattern = {
 		"OverseerForm",
 		"OverseerList",
@@ -57,9 +63,12 @@ vim.api.nvim_create_autocmd("FileType", {
 		"floggraph",
 		"fugitive",
 		"git",
+		"gitcommit",
 		"help",
 		"lspinfo",
 		"man",
+		"neoai-input",
+		"neoai-output",
 		"neotest-output",
 		"neotest-summary",
 		"qf",

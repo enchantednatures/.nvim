@@ -7,7 +7,7 @@ return {
 			dashboard.button("e", "󰺾 " .. " Explorer", ":NvimTreeToggle <CR>"),
 			dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
 			dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-			dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
+			dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
 			dashboard.button("w", " " .. " Find text", ":Telescope live_grep <CR>"),
 			dashboard.button("g", " " .. " Git", ":LazyGit <CR>"),
 			dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),

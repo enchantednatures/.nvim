@@ -21,7 +21,23 @@ return {
 			local wk = require("which-key")
 			wk.setup({
 				show_help = true,
-				plugins = { spelling = true },
+				plugins = {
+					spelling = {
+						enabled = true,
+						suggestions = 20,
+					},
+					marks = true,
+					registers = true,
+					presets = {
+						operators = true, -- adds help for operators like d, y, ...
+						motions = true, -- adds help for motions
+						text_objects = true, -- help for text objects triggered after entering an operator
+						windows = true, -- default bindings on <c-w>
+						nav = true, -- misc bindings to work with windows
+						z = true, -- bindings for folds, spelling and others prefixed with z
+						g = true, -- bindings for prefixed with g
+					},
+				},
 				key_labels = { ["<leader>"] = "SPC" },
 				triggers = "auto",
 			})
@@ -39,13 +55,21 @@ return {
 			--		})
 			wk.register({
 				mode = { "n", "v" },
+				["m"] = {
+					name = "Marks",
+					[","] = { desc = "Set next alpa" },
+					[";"] = { desc = "Toggle next alpa" },
+					["]"] = { desc = "Move to next mark" },
+					["["] = { desc = "Move to previous mark" },
+				},
 				["<leader>"] = {
 					name = "Leader",
 					w = { "<cmd>update!<CR>", "Save" },
 					[";"] = { "<cmd>Alpha<CR>", "Dashboard" },
                     --
                     -- stylua: ignore
-                    q = { name = "Quit",
+                    q = {
+                        name = "Quit",
                         q = { function() require("utils").quit() end, "Quit", },
                         t = { "<cmd>tabclose<cr>", "Close Tab" },
                     },
