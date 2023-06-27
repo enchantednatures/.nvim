@@ -1,39 +1,4 @@
 local M = {}
--- rust_analyzer = function(_, opts)
---                     local rt = require("rust-tools")
---                     local lsp_utils = require("plugins.lsp.utils")
---                     lsp_utils.on_attach(function(client, buffer)
---                         -- stylua: ignore
---                         if client.name == "rust_analyzer" then
---                             vim.keymap.set("n", "<leader>cR", rt.runnables.runnables(),
---                                 { buffer = buffer, desc = "Runnables" })
---                             vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end,
---                                 { buffer = buffer, desc = "Code Lens" })
---                         end
---                     end)
-
---                     rt.setup({
---                         tools = {
---                             hover_actions = { border = "solid" },
---                             on_initialized = function()
---                                 local ih = require("inlay-hints")
---                                 ih.set_all()
---                                 vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" },
---                                     {
---                                         pattern = { "*.rs" },
---                                         callback = function()
---                                             vim.lsp.codelens.refresh()
---                                         end,
---                                     })
---                             end,
---                         },
---                         server = opts,
---                         dap = {
---                             adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
---                         },
---                     })
---                     return true
---                 end,
 
 M.config = function()
 	local status_ok, rust_tools = pcall(require, "rust-tools")
@@ -100,17 +65,14 @@ M.config = function()
 		},
 	}
 	local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/")
-	local vscode_path = vim.fn.expand("~/") .. ".vscode/extensions/codelldb/"
 
 	local path = ""
 	local debugger_found = true
 	if M.dir_exists(mason_path) then
 		path = mason_path
-	elseif M.dir_exists(vscode_path) then
-		path = vscode_path
 	else
 		debugger_found = false
-		vim.notify("please install codelldb using :Mason or via vscode", vim.log.levels.WARN)
+		vim.notify("please install codelldb using :Mason", vim.log.levels.WARN)
 	end
 
 	if debugger_found then

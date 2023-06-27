@@ -5,6 +5,10 @@ return {
 		config = true,
 	},
 	{
+		"kdheepak/lazygit.nvim",
+		lazy = false,
+	},
+	{
 		"TimUntersberger/neogit",
 		cmd = "Neogit",
 		opts = {

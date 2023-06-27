@@ -1,10 +1,25 @@
 return {
+	"editorconfig/editorconfig-vim",
 	"nvim-lua/plenary.nvim",
 	"MunifTanjim/nui.nvim",
 	"nvim-tree/nvim-web-devicons",
 	"f-person/git-blame.nvim",
 	"tpope/vim-abolish",
-
+	"jay-babu/mason-null-ls.nvim",
+	"jose-elias-alvarez/null-ls.nvim",
+	"williamboman/mason.nvim",
+	"mfussenegger/nvim-dap",
+	"jay-babu/mason-nvim-dap.nvim",
+	{
+		"utilyre/barbecue.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = true,
+	},
 	{ "tpope/vim-repeat", event = "VeryLazy" },
 	{ "nacro90/numb.nvim", event = "BufReadPre", config = true },
 	{
@@ -21,61 +36,6 @@ return {
 				backend = { "telescope", "fzf", "builtin" },
 			},
 		},
-	},
-	{
-		"saecki/crates.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		event = "VeryLazy",
-		tag = "v0.3.0",
-		opts = {},
-		config = function(_, opts)
-			require("crates").setup(opts)
-		end,
-	},
-	{
-		"simrat39/inlay-hints.nvim",
-		opts = {
-			highlight = "Comment",
-			prefix = "     > ",
-			aligned = false,
-			only_current_line = false,
-			enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
-			eol = {
-				right_align = false,
-			},
-		},
-		config = function(_, opts)
-			require("inlay-hints").setup(opts)
-		end,
-	},
-	{
-		"rcarriga/nvim-notify",
-		event = "VeryLazy",
-		opts = {
-			timeout = 3000,
-			background_colour = "#000000",
-			max_height = function()
-				return math.floor(vim.o.lines * 0.75)
-			end,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.75)
-			end,
-		},
-		config = function(_, opts)
-			require("notify").setup(opts)
-			vim.notify = require("notify")
-		end,
-	},
-	{
-		"kdheepak/lazygit.nvim",
-		lazy = false,
-	},
-	{
-		"andymass/vim-matchup",
-		event = { "BufReadPost" },
-		config = function()
-			vim.g.matchup_matchparen_offscreen = { method = "popup" }
-		end,
 	},
 	{ "tpope/vim-surround", event = "BufReadPre" },
 	{
@@ -104,5 +64,4 @@ return {
             },
         },
 	},
-	{ "editorconfig/editorconfig-vim" },
 }
