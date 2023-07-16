@@ -9,6 +9,8 @@ return {
 		hijack_netrw = true,
 		respect_buf_cwd = true,
 		view = {
+			side = "right",
+			width = 36,
 			number = true,
 			relativenumber = true,
 		},
@@ -24,6 +26,40 @@ return {
 			open_file = {
 				quit_on_open = true,
 			},
+		},
+		renderer = {
+			highlight_git = true,
+			root_folder_label = function(path)
+				local project = vim.fn.fnamemodify(path, ":t")
+				return string.upper(project)
+			end,
+			indent_markers = {
+				enable = true,
+			},
+			icons = {
+				glyphs = {
+					default = "󰦨",
+					symlink = "󰦨",
+					bookmark = "󰦨",
+					git = {
+						unstaged = "",
+						staged = "",
+						unmerged = "",
+						renamed = "",
+						deleted = "",
+						untracked = "",
+						ignored = "",
+					},
+					folder = {
+						default = "",
+						open = "",
+						symlink = "",
+						arrow_closed = "", -- arrow when folder is closed
+						arrow_open = "", -- arrow when folder is open
+					},
+				},
+			},
+			special_files = { "README.md" },
 		},
 	},
 }
