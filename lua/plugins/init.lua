@@ -3,6 +3,7 @@ return {
 	"MunifTanjim/nui.nvim",
 	"nvim-tree/nvim-web-devicons",
 	"f-person/git-blame.nvim",
+	{ "christoomey/vim-tmux-navigator" },
 	"tpope/vim-abolish",
 
 	{ "tpope/vim-repeat", event = "VeryLazy" },
