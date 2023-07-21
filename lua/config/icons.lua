@@ -142,6 +142,19 @@ return {
 		Debug = "",
 		Trace = "✎",
 	},
+    dashboard = {
+        Explorer = "󰺾 ",
+        File = " ",
+        NewFile = " ",
+        RecentFiles = " ",
+        FindText = " ",
+        Git = " ",
+        Config = " ",
+        RestoreSession = "勒",
+        Lazy = "鈴",
+        Quit = " ",
+        Marks = "󱡅 "
+    },
 	misc = {
 		Robot = "ﮧ",
 		Squirrel = "",

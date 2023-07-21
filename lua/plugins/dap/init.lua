@@ -1,4 +1,4 @@
-local M = {
+return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
 		{ "rcarriga/nvim-dap-ui" },
@@ -16,6 +16,9 @@ local M = {
 			osv = function(_, _)
 				require("plugins.dap.lua").setup()
 			end,
+			rust = function(_, _)
+				require("plugins.dap.rust").config()
+			end,
 		},
 	},
 	config = function(plugin, opts)
@@ -25,8 +28,6 @@ local M = {
 
 		local dap, dapui = require("dap"), require("dapui")
 		dapui.setup({})
-		local rust = require("plugins.dap.rust")
-		rust.config()
 
 		dap.listeners.after.event_initialized["dapui_config"] = function()
 			dapui.open()
@@ -44,5 +45,3 @@ local M = {
 		end
 	end,
 }
-
-return M

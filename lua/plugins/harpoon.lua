@@ -1,3 +1,4 @@
+-- now that I know how to use marks, do I even need harpoon? 
 return {
 	"theprimeagen/harpoon",
 	keys = {

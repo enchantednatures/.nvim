@@ -3,18 +3,20 @@ return {
 	event = "VimEnter",
 	config = function()
 		local dashboard = require("alpha.themes.dashboard")
+        local icons = require("config.icons")
+        
 		dashboard.section.buttons.val = {
-			dashboard.button("e", "󰺾 " .. " Explorer", ":NvimTreeToggle <CR>"),
-			dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-			dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-			dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-			dashboard.button("w", " " .. " Find text", ":Telescope live_grep <CR>"),
-			dashboard.button("g", " " .. " Git", ":LazyGit <CR>"),
-			dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
-			dashboard.button("s", "勒" .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
-			dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
-			dashboard.button("q", " " .. " Quit", ":qa<CR>"),
-			dashboard.button("h", "󱡅 " .. " Harpoon Marks", [[:lua require("harpoon.ui").toggle_quick_menu() <cr>]]),
+			dashboard.button("e", icons.dashboard.Explorer  .. " Explorer", ":NvimTreeToggle <CR>"),
+			dashboard.button("f", icons.dashboard.File  .. " Find file", ":Telescope find_files <CR>"),
+			dashboard.button("n", icons.dashboard.NewFile  .. " New file", ":ene <BAR> startinsert <CR>"),
+			dashboard.button("r", icons.dashboard.RecentFiles  .. " Recent files", ":Telescope oldfiles <CR>"),
+			dashboard.button("w", icons.dashboard.FindText  .. " Find text", ":Telescope live_grep <CR>"),
+			dashboard.button("g", icons.dashboard.Git  .. " Git", ":LazyGit <CR>"),
+			dashboard.button("c", icons.dashboard.Config  .. " Config", ":e $MYVIMRC <CR>"),
+			dashboard.button("s", icons.dashboard.RestoreSession  .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
+			dashboard.button("l", icons.dashboard.Lazy  .. " Lazy", ":Lazy<CR>"),
+			dashboard.button("q", icons.dashboard.Quit  .. " Quit", ":qa<CR>"),
+			dashboard.button("h", icons.dashboard.Marks  .. " Harpoon Marks", [[:lua require("harpoon.ui").toggle_quick_menu() <cr>]]),
 		}
 		for _, button in ipairs(dashboard.section.buttons.val) do
 			button.opts.hl = "AlphaButtons"
