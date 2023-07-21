@@ -12,7 +12,6 @@ return {
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"onsails/lspkind.nvim",
-			"zbirenbaum/copilot-cmp",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -20,7 +19,6 @@ return {
 			local neogen = require("neogen")
 			local icons = require("config.icons")
 
-			local gh_issues = require("plugins.completion.gh_issues")
 			local has_words_before = function()
 				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
 					return false
@@ -95,8 +93,6 @@ return {
 					}),
 				}),
 				sources = cmp.config.sources({
-					{ name = "copilot", group_index = 2 },
-					{ name = "gh_issues", group_index = 2 },
 					{ name = "nvim_lsp_signature_help", group_index = 2 },
 					{ name = "nvim_lua", group_index = 2 },
 					{ name = "nvim_lsp", group_index = 2 },
@@ -108,7 +104,6 @@ return {
 				sorting = {
 					priority_weight = 2,
 					comparators = {
-						require("copilot_cmp.comparators").prioritize,
 						-- Below is the default comparitor list and order for nvim-cmp
 						cmp.config.compare.offset,
 						-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
@@ -136,19 +131,16 @@ return {
 						mode = "symbol_text", -- show only symbol annotations
 						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-						symbol_map = { copilot = "" },
 						-- deduplicate the entries before sending to the cmp
 						before = function(entry, item)
 							local max_width = 0
 							local source_names = {
-								copilot = "",
 								nvim_lsp = "(LSP)",
 								nvim_lsp_signature_help = "(Signature)",
 								path = "(Path)",
 								nvim_lua = "(vim)",
 								luasnip = "(Snippet)",
 								buffer = "(Buffer)",
-								gh_issues = "(Issue)",
 							}
 
 							local duplicates = {

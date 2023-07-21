@@ -10,7 +10,7 @@ return {
 					library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
 				},
 			},
-			{ "j-hui/fidget.nvim", config = true },
+			{ "j-hui/fidget.nvim", tag = "legacy", config = true },
 			{ "smjonas/inc-rename.nvim", config = true },
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -92,12 +92,15 @@ return {
 							hover_actions = { border = "solid" },
 							on_initialized = function()
 								ih.set_all()
-								vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
-									pattern = { "*.rs" },
-									callback = function()
-										vim.lsp.codelens.refresh()
-									end,
-								})
+								vim.api.nvim_create_autocmd(
+									{ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" },
+									{
+										pattern = { "*.rs" },
+										callback = function()
+											vim.lsp.codelens.refresh()
+										end,
+									}
+								)
 							end,
 						},
 						server = opts,
