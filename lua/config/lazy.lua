@@ -14,11 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Configure lazy.nvim
 require("lazy").setup({
+    { 'rose-pine/neovim',lazy=false, priority = 1000 ,name = 'rose-pine' },
 	spec = {
 		{ import = "plugins" },
 	},
 	defaults = { lazy = true, version = nil },
-	install = { missing = true, colorscheme = { "catppuccin", "tokyonight" } },
+	install = { missing = true, colorscheme = {"rose-pine"} },
 	checker = { enabled = true },
 	performance = {
 		cache = {
@@ -39,3 +40,4 @@ require("lazy").setup({
 	},
 })
 vim.keymap.set("n", "<leader>zz", "<cmd>:Lazy<cr>", { desc = "Manage Plugins" })
+vim.cmd('colorscheme rose-pine')

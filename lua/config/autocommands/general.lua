@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
 		if not (vim.fn.expand("%") == "" or buftype == "nofile") then
 			vim.cmd("do User FileOpened")
 			-- todo:
-			require("user.lsp").setup()
+			-- require("user.lsp").setup()
 			vim.cmd("LspStart")
 		end
 	end,
@@ -74,13 +74,13 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd("TransparentBackground", {
-	group = augroups.theme,
-	callback = function()
-		vim.api.nvim_set_hl(0, "normal", { bg = "none" })
-		vim.api.nvim_set_hl(0, "normalfloat", { bg = "none" })
-	end,
-})
+-- vim.api.nvim_create_autocmd("TransparentBackground", {
+-- 	group = augroups.theme,
+-- 	callback = function()
+-- 		vim.api.nvim_set_hl(0, "normal", { bg = "none" })
+-- 		vim.api.nvim_set_hl(0, "normalfloat", { bg = "none" })
+-- 	end,
+-- })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = {
@@ -103,7 +103,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		"neoai-output",
 		"neotest-output",
 		"neotest-summary",
-		"null-ls-info",
 		"qf",
 		"query",
 		"spectre_panel",

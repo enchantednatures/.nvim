@@ -2,7 +2,8 @@ return {
 	{
 		"mrjones2014/legendary.nvim",
 		keys = {
-			{ "<S-CR>", "<cmd>Legendary<cr>", desc = "Command Palette" },
+			-- { "<S-CR>", "<cmd>Legendary<cr>", desc = "Command Palette" },
+			{ "<C-P", "<cmd>Legendary<cr>", desc = "Command Palette" },
 			-- { "<leader>hc", "<cmd>Legendary<cr>", desc = "Command Palette" },
 		},
 		opts = {

@@ -40,6 +40,7 @@ return {
 				"html",
 				"json",
 				"json5",
+				"jsonc",
 				"latex",
 				"lua",
 				"markdown",

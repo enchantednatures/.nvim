@@ -1,5 +1,7 @@
 local augroups = require("user.augroups")
 
+-- TODO:: re-enable
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = augroups.lspFeatures,
 	callback = function(args)
@@ -7,7 +9,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			return
 		end
 
-		local lsp_common = require("user.lsp.common")
+		local lsp_common = require("plugins.lsp.common")
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		local bufnr = args.buf
 
@@ -29,7 +31,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			})
 		end
 
-		require("user.lsp.lsp_keymappings").set_lsp_keymaps(bufnr)
+		-- require("user.lsp.lsp_keymappings").set_lsp_keymaps(bufnr)
 		lsp_common.lsp_highlight_document(bufnr, client)
 	end,
 })

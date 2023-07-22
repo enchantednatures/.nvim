@@ -1,4 +1,6 @@
 return {
+
+    { 'rose-pine/neovim',lazy=false, priority = 1000 ,name = 'rose-pine' },
 	"nvim-lua/plenary.nvim",
 	"MunifTanjim/nui.nvim",
 	"nvim-tree/nvim-web-devicons",
