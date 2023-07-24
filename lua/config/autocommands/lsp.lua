@@ -1,6 +1,5 @@
 local augroups = require("user.augroups")
 
--- TODO:: re-enable
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = augroups.lspFeatures,
