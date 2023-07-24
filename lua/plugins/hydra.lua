@@ -1,3 +1,4 @@
+-- TODO: is Hydra useful when something like WhichKey exists? 
 local function quick_menu()
 	local cmd = require("hydra.keymap-util").cmd
 	return {

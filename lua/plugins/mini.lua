@@ -65,6 +65,7 @@ return {
 			require("mini.animate").setup()
 		end,
 	},
+    -- TODO: should I use mini comment instead of the other? 
 	-- {
 	--   "echasnovski/mini.comment",
 	--   event = "VeryLazy",
@@ -79,6 +80,7 @@ return {
 	--     require("mini.comment").setup(opts)
 	--   end,
 	-- },
+    -- TODO: is mini pairs better than ... ? 
 	-- {
 	--   "echasnovski/mini.pairs",
 	--   event = "VeryLazy",
