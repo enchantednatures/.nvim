@@ -8,7 +8,6 @@
 -- vim.opt.completeopt = "menuone,noselect"
 -- vim.opt.conceallevel = 3
 -- vim.opt.confirm = true
--- vim.opt.cursorline = true
 -- vim.opt.expandtab = true
 -- vim.opt.hidden = true
 -- vim.opt.hlsearch = false
@@ -42,9 +41,6 @@
 -- vim.opt.updatetime = 200
 -- vim.opt.wildmode = "longest:full,full"
 
--- vim.g.mapleader = " "
--- vim.g.maplocalleader = ","
--- vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
@@ -56,7 +52,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
-vim.opt.cursorline = true
+-- vim.opt.cursorline = true
 vim.opt.wrap = false
 vim.opt.shiftround = true
 vim.opt.swapfile = false
@@ -75,14 +71,17 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
+vim.o.completeopt = "menuone,noinsert,noselect"
+vim.opt.shortmess = vim.opt.shortmess + "c"
+
 vim.opt.updatetime = 50
 
 --vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard = "unnamedplus"
 
--- Transparent Background
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
+
 
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
