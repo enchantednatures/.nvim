@@ -2,6 +2,23 @@ return {
   { "simrat39/rust-tools.nvim" },
   "b0o/schemastore.nvim",
   {
+    "simrat39/inlay-hints.nvim",
+    event = { "BufRead Cargo.toml" },
+    opts = {
+      highlight = "Comment",
+      prefix = "     > ",
+      aligned = false,
+      only_current_line = false,
+      enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
+      eol = {
+        right_align = false,
+      },
+    },
+    config = function(_, opts)
+      require("inlay-hints").setup(opts)
+    end,
+  },
+  {
     "j-hui/fidget.nvim",
     tag = "legacy",
     event = "LspAttach",
@@ -78,21 +95,20 @@ return {
             parameter_hints_prefix = "",
             other_hints_prefix = "",
           },
+          hover_actions = {
+            auto_focus = true
+          }
         },
         server = {
           on_attach = function(_, bufnr)
-            vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
-            -- Code action groups
-            vim.keymap.set("n", "<Leader>a", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
-
-            vim.keymap.set("n", "<leader>ca", rust_tools.hover_actions.hover_actions, { desc = "Code actions" }, { buffer = bufnr })
+            vim.keymap.set("n", "<Leader>ca", rust_tools.code_action_group.code_action_group,
+              { desc = "Code actions" }, { buffer = bufnr })
+            vim.keymap.set("n", "<leader>ch", rust_tools.hover_actions.hover_actions,
+              { desc = "Hover action" }, { buffer = bufnr })
           end,
 
           settings = {
-            -- to enable rust-analyzer settings visit:
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
             ["rust-analyzer"] = {
-              -- enable clippy on save
               checkOnSave = {
                 command = "clippy",
               },
@@ -102,6 +118,17 @@ return {
       })
     end,
 
+  },
+
+  {
+    "saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    tag = "v0.3.0",
+    opts = {},
+    config = function(_, opts)
+      require("crates").setup(opts)
+    end,
   },
 
   -- Autocompletion
@@ -207,7 +234,7 @@ return {
           { name = "luasnip",                 group_index = 2 },
           { name = "buffer",                  group_index = 2, keyword_length = 5 },
           { name = "path",                    group_index = 2 },
-          { name = "crates",                  group_index = 2 },
+          -- { name = "crates",                  group_index = 2 },
         }),
         sorting = {
           priority_weight = 2,
@@ -381,27 +408,6 @@ return {
       },
     },
   },
-  {
-    "folke/trouble.nvim",
-    cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
-    keys = {
-      { "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics" },
-      { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
-    },
-  },
-  {
-    "nvimdev/lspsaga.nvim",
-    config = function()
-      require("lspsaga").setup({})
-    end,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons"      -- optional
-    }
-  },
-
-
   {
     "utilyre/barbecue.nvim",
     event = "VeryLazy",

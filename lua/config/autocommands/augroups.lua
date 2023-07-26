@@ -1,7 +1,7 @@
 local M = {}
 
 local function augroup(name, opts)
-	return vim.api.nvim_create_augroup("nde_" .. name, opts)
+  return vim.api.nvim_create_augroup("nde_" .. name, opts)
 end
 
 M.attachDadbodCompletion = augroup("AttachDadbodCompletion", { clear = true })
@@ -21,5 +21,6 @@ M.openToLastLoc = augroup("OpenToLastLoc", { clear = true })
 M.quickClose = augroup("QuickCloseQuickFix", { clear = true })
 M.theme = augroup("Theme", { clear = true })
 M.winbar = augroup("_WinBar", { clear = true })
+M.cmpCargo = augroup("CmpSourceCargo", { clear = true })
 
 return M
