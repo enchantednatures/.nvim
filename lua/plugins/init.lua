@@ -1,5 +1,17 @@
 return {
-  { "rose-pine/neovim",  lazy = false,         priority = 1000, name = "rose-pine" },
+  {
+    "rose-pine/neovim",
+    lazy = false,
+    config = function(_, opts)
+      require("rose-pine").setup({
+        --- @usage 'auto'|'main'|'moon'|'dawn'
+        variant = "moon",
+
+      })
+    end,
+    priority = 1000,
+    name = "rose-pine"
+  },
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   "nvim-tree/nvim-web-devicons",
