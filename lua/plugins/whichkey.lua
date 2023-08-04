@@ -84,7 +84,7 @@ return {
             name = "+Notes",
             d = { "<Cmd>ObsidianToday<CR>", "Obsidian daily note" },
             y = { "<Cmd>ObsidianYesterday<CR>", "Obsidian Yesterday" },
-            t = { "<Cmd> ObsidianSearch<CR>", "Telescope Obsidian" }
+            t = { "<Cmd> ObsidianSearch<CR>", "Telescope Obsidian" },
             s = { "<Cmd>ObsidianQuickSwitch<CR>", "Obsidian Quick Switch" }
 
           },
