@@ -75,6 +75,10 @@ return {
         },
       }
 
+      lspconfig.spectral.setup {
+        filetypes = { "spec.yaml", "spec.yml" },
+        -- settings = {}
+      }
 
       lsp_zero.skip_server_setup({ "rust_analyzer" })
 

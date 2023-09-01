@@ -70,6 +70,7 @@ return {
       })
     end,
   },
+  { "andweeb/presence.nvim",        lazy = false },
   -- session management
   {
     "folke/persistence.nvim",

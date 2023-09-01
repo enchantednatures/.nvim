@@ -103,11 +103,9 @@ return {
       {
         "<leader>gc",
         function()
-          require("telescope").extensions.conventional_commits
-              .conventional_commits()
+          require("telescope").extensions.conventional_commits.conventional_commits()
         end,
-        desc =
-        "Conventional Commit"
+        desc = "Conventional Commit"
       }
 
     },
@@ -117,6 +115,8 @@ return {
       local actions = require("telescope.actions")
       local actions_layout = require("telescope.actions.layout")
       local trouble = require("trouble.providers.telescope")
+      local cc_actions = require("telescope._extensions.conventional_commits.actions")
+
 
       local mappings = {
         i = {
@@ -198,7 +198,10 @@ return {
               },
             },
           },
-          conventional_commits = {},
+          conventional_commits = {
+            action = cc_actions.prompt,
+            include_body_and_footer = true,
+          },
         },
       }
       telescope.setup(opts)
