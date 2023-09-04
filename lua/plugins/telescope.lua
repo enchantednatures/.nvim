@@ -147,7 +147,9 @@ return {
           ["<c-t>"] = trouble.open_with_trouble,
           ["?"] = actions_layout.toggle_preview,
         },
-        n = { ["<c-t>"] = trouble.open_with_trouble },
+        n = {
+          ["<c-t>"] = trouble.open_with_trouble
+        },
       }
 
       local opts = {
@@ -176,6 +178,10 @@ return {
           },
         },
         extensions = {
+          conventional_commits = {
+            action = cc_actions.prompt,
+            include_body_and_footer = true,
+          },
           file_browser = {
             theme = "dropdown",
             previewer = false,
@@ -218,10 +224,7 @@ return {
               },
             },
           },
-          conventional_commits = {
-            action = cc_actions.prompt,
-            include_body_and_footer = true,
-          },
+
         },
       }
       telescope.setup(opts)
