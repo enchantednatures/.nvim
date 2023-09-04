@@ -18,7 +18,7 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
   },
-  defaults = { lazy = true, version = nil },
+  defaults = { lazy = false, version = nil },
   install = { missing = true, colorscheme = { "rose-pine-moon" } },
   checker = { enabled = true },
   performance = {

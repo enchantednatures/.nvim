@@ -7,9 +7,6 @@ local function quick_menu()
     hint = [[
         Quick Menu
 ^
-_f_: Show Terminal (float)
-_v_: Open Terminal (vertical)Commands
-_h_: Open Terminal (horizontal)
 _x_: Open Quickfix
 _l_: Open Location List
 _s_: Buffer Fuzzy Search
@@ -63,13 +60,6 @@ _m_: Show Man Pages
         desc = "Opens Location List",
         silent = true
       } },
-      { "f", cmd("ToggleTerm direction=float"),    { desc = "Floating Terminal", silent = true } },
-      { "v", cmd("ToggleTerm direction=vertical"), { desc = "Vertical Terminal", silent = true } },
-      { "h", cmd("ToggleTerm direction=horizontal"),
-        {
-          desc = "Horizontal Terminal",
-          silent = true
-        } },
       { "q",     nil, { desc = "quit", exit = true, nowait = true } },
       { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
     },
@@ -247,79 +237,7 @@ local function dap_menu()
   }
 end
 
-local function telescope_hydra()
-  local cmd = require("hydra.keymap-util").cmd
-  return {
-    name = "Telescope",
-    mode = { "n" },
-    hint = [[
-        Telescope
-^
-_f_: Find Files                 _c_: Common (FRecent)
-_o_: Open Buffers               _g_: Git Repos
-_h_: Help                       _p_: Projects
-_w_: Workspace                  _r_: Recents
-_b_: Buffer                     _a_: Aerial Code Outline
-_z_: Colorscheme                _U_: Undo
-_k_: Keymaps
-^ ^                 _q_: Quit
-    ]],
-    config = {
-      color = "blue",
-      invoke_on_body = true,
-      hint = {
-        type = "window",
-        position = "bottom",
-        border = "rounded",
-        show_name = true,
-      },
-    },
-    body = "<leader>tt",
-    heads = {
-      { "f", cmd("lua require('utils').find_files()"), { desc = "Find Files", silent = true } },
-      {
-        "c",
-        cmd("Telescope frecency theme=dropdown previewer=false"),
-        { desc = "Common (FRecent)", silent = true },
-      },
-      { "o", cmd("Telescope buffers"), {
-        desc = "Open Buffers",
-        silent = true
-      } },
-      { "g", cmd("Telescope repo list"),               { desc = "Git Repos", silent = true } },
-      { "k", ":lua require('telescope.builtin').keymaps()<CR>",
-        {
-          desc = "Open Neovim Keymaps",
-          silent = true
-        } },
-      { "h", cmd("Telescope help_tags"), { desc = "Help", silent = true } },
-      {
-        "p",
-        cmd("lua require('telescope').extensions.project.project { display_type = 'minimal' }"),
-        { desc = "Projects", silent = true },
-      },
-      {
-        "w",
-        cmd("lua require('telescope').extensions.menufacture.live_grep()"),
-        { desc = "Workspace", silent = true },
-      },
-      { "r", cmd("Telescope oldfiles"),  { desc = "Recents", silent = true } },
-      {
-        "b",
-        cmd("lua require('telescope.builtin').current_buffer_fuzzy_find()"),
-        { desc = "Buffer", silent = true },
-      },
-      { "a", cmd("Telescope aerial"), { desc = "Aerial Code Outline", silent = true } },
-      {
-        "z",
-        cmd("lua require('telescope.builtin').colorscheme({ enable_preview = true })"),
-        { desc = "Colorscheme", silent = true },
-      },
-      { "U", cmd("Telescope undo"),   { desc = "Undo", silent = true } },
-      { "q", nil,                     { desc = "Quit", exit = true, nowait = true } },
-    },
-  }
-end
+
 return {
   {
     "anuvyklack/hydra.nvim",
@@ -328,9 +246,8 @@ return {
       local Hydra = require("hydra")
       Hydra(gitsigns_menu())
       Hydra(quick_menu())
-      -- Hydra(dap_menu())
+      Hydra(dap_menu())
       -- Hydra(telekasten_hydra())
-      Hydra(telescope_hydra())
     end,
   },
 }

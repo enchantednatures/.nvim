@@ -4,6 +4,7 @@
         "enable": true,
         "globals": [
             "vim",
+            "nvim",
             "describe",
             "pending",
             "it",

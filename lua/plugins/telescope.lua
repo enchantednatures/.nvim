@@ -14,9 +14,19 @@ return {
       "olacin/telescope-cc.nvim",
       "ahmedkhalf/project.nvim",
       "cljoly/telescope-repo.nvim",
+      "debugloop/telescope-undo.nvim",
       "stevearc/aerial.nvim",
       "nvim-telescope/telescope-frecency.nvim",
-      "debugloop/telescope-undo.nvim",
+      {
+        "lpoto/telescope-docker.nvim",
+        opts = {},
+        config = function(_, opts)
+          require("telescope").load_extension "docker"
+        end,
+        keys = {
+          { "<leader>fd", "<Cmd>Telescope docker<CR>", desc = "Docker" },
+        },
+      },
       "molecule-man/telescope-menufacture",
       "kkharji/sqlite.lua",
     },
@@ -27,20 +37,32 @@ return {
       {
         "<leader>tc",
         "<cmd>Telescope frecency theme=dropdown previewer=false<cr>",
-        desc =
-        "Common (FRecent)"
+        desc = "Common (FRecent)"
+      },
+      {
+        "<leader><tab>",
+        "<Cmd>lua require('telescope.builtin').commands()<CR>",
+        desc = "Telescope Commands"
+      },
+      {
+        "<leader>th",
+        "<Cmd>Telescope help_tags<cr>",
+        desc = "[T]elescope [H]elp"
+      },
+      {
+        "<leader>tk",
+        ":lua require('telescope.builtin').keymaps()<CR>",
+        desc = "[T]elescope [K]eys"
       },
       {
         "<leader>to",
         "<cmd>Telescope buffers<cr>",
-        desc =
-        "Open Buffers"
+        desc = "Open Buffers"
       },
       {
         "<leader>tg",
         "<cmd>Telescope repo list<cr>",
-        desc =
-        "Git Repos"
+        desc = "Git Repos"
       },
       {
         "<leader>td",
@@ -52,53 +74,51 @@ return {
       {
         "<leader>th",
         "<cmd>Telescope help_tags<cr>",
-        desc =
-        "Help"
+        desc = "Help"
+      },
+      {
+        "<leader>ts",
+        function()
+          require("telescope.builtin").lsp_dynamic_workspace_symbols()
+        end,
+        desc = "[W]orkspace [S]ymbols"
       },
       {
         "<leader>tp",
         function()
-          require("telescope").extensions.project.project { display_type =
-          "minimal" }
+          require("telescope").extensions.project.project { display_type = "minimal" }
         end,
-        desc =
-        "Projects",
+        desc = "Projects",
       },
       {
         "<leader>tw",
         function() require("telescope").extensions.menufacture.live_grep() end,
-        desc =
-        "Workspace"
+        desc = "Workspace"
       },
       {
         "<leader>tr",
         "<cmd>Telescope oldfiles<cr>",
-        desc =
-        "Recents"
+        desc = "Recents"
       },
       {
         "<leader>tb",
         function() require("telescope.builtin").current_buffer_fuzzy_find() end,
-        desc =
-        "Buffer",
+        desc = "Buffer",
       },
       {
         "<leader>ta",
         "<cmd>Telescope aerial<cr>",
-        desc =
-        "Aerial Code Outline"
+        desc = "Aerial Code Outline"
       },
       {
         "<leader>zc",
         function() require("telescope.builtin").colorscheme({ enable_preview = true }) end,
-        desc =
-        "Colorscheme",
+        desc = "Colorscheme",
       },
       {
         "<leader>U",
         "<cmd>Telescope undo<cr>",
-        desc =
-        "Undo"
+        desc = "Undo"
       },
       {
         "<leader>gc",
@@ -212,10 +232,11 @@ return {
       telescope.load_extension("project")
       telescope.load_extension("projects")
       telescope.load_extension("aerial")
-      -- telescope.load_extension("dap")
+      telescope.load_extension("dap")
       telescope.load_extension("frecency")
       telescope.load_extension("menufacture")
       telescope.load_extension("conventional_commits")
+      telescope.load_extension("undo")
     end,
   },
   {

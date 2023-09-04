@@ -11,7 +11,7 @@ return {
 
     "echasnovski/mini.nvim",
     version = "*",
-    lazy=false,
+    lazy = false,
     config = function()
       require("mini.cursorword").setup()
     end
