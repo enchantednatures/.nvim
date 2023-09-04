@@ -15,10 +15,10 @@ return {
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   "nvim-tree/nvim-web-devicons",
-  "f-person/git-blame.nvim",
+  { "f-person/git-blame.nvim", event = "BufReadPost" },
   "tpope/vim-abolish",
-  { "tpope/vim-repeat",  event = "VeryLazy" },
-  { "nacro90/numb.nvim", event = "BufReadPre", config = true },
+  { "tpope/vim-repeat",        event = "VeryLazy" },
+  { "nacro90/numb.nvim",       event = "BufReadPre", config = true },
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
@@ -59,7 +59,7 @@ return {
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
   },
-  { "tpope/vim-surround",    event = "BufReadPre" },
+  { "tpope/vim-surround",           event = "BufReadPre" },
   {
     "nvim-tree/nvim-web-devicons",
     dependencies = { "DaikyXendo/nvim-material-icon" },
@@ -79,7 +79,6 @@ return {
       { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
     },
   },
-
   {
     "abecodes/tabout.nvim",
     event = "VeryLazy",
@@ -127,7 +126,6 @@ return {
       },
     },
   },
-
   { "tpope/vim-dadbod",             lazy = false },
   { "kristijanhusak/vim-dadbod-ui", lazy = false },
   {
@@ -175,61 +173,61 @@ return {
     end,
     mappings = {},
   },
-  {
-    "kevinhwang91/nvim-ufo",
-    lazy = true,
-    dependencies = {
-      "kevinhwang91/promise-async"
-    },
-    config = function(_, opts)
-      vim.o.foldcolumn = "1" -- '0' is not bad
-      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
+  -- {
+  --   "kevinhwang91/nvim-ufo",
+  --   lazy = true,
+  --   dependencies = {
+  --     "kevinhwang91/promise-async"
+  --   },
+  --   config = function(_, opts)
+  --     vim.o.foldcolumn = "1" -- '0' is not bad
+  --     vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+  --     vim.o.foldlevelstart = 99
+  --     vim.o.foldenable = true
 
-      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-      vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-      vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+  --     -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+  --     vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+  --     vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true
-      }
-      local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
-      for _, ls in ipairs(language_servers) do
-        require("lspconfig")[ls].setup({
-          capabilities = capabilities
-          -- you can add other fields for setting up lsp server in this table
-        })
-      end
-      require("ufo").setup()
-    end
+  --     local capabilities = vim.lsp.protocol.make_client_capabilities()
+  --     capabilities.textDocument.foldingRange = {
+  --       dynamicRegistration = false,
+  --       lineFoldingOnly = true
+  --     }
+  --     local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
+  --     for _, ls in ipairs(language_servers) do
+  --       require("lspconfig")[ls].setup({
+  --         capabilities = capabilities
+  --         -- you can add other fields for setting up lsp server in this table
+  --       })
+  --     end
+  --     require("ufo").setup()
+  --   end
 
-  },
-  {
-    "epwalsh/obsidian.nvim",
-    lazy = false,
-    event = { "BufReadPre /Users/hcasten/Library/Mobile Documents/iCloud~md~obsidian/Documents/**.md" },
-    -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand':
-    -- event = { "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md" },
-    dependencies = {
-      -- Required.
-      "nvim-lua/plenary.nvim",
+  -- },
+  -- {
+  --   "epwalsh/obsidian.nvim",
+  --   lazy = false,
+  --   event = { "BufReadPre /Users/hcasten/Library/Mobile Documents/iCloud~md~obsidian/Documents/**.md" },
+  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand':
+  --   -- event = { "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md" },
+  --   dependencies = {
+  --     -- Required.
+  --     "nvim-lua/plenary.nvim",
 
-      -- see below for full list of optional dependencies 👇
-    },
-    opts = {
-      dir = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/ObsidianVault/", -- no need to call 'vim.fn.expand' here
-      daily_notes = {
-        -- Optional, if you keep daily notes in a separate directory.
-        folder = "calendar",
-        -- Optional, if you want to change the date format for daily notes.
-        date_format = "%Y-%m-%d"
-      },
-      -- see below for full list of options 👇
-    },
-  },
+  --     -- see below for full list of optional dependencies 👇
+  --   },
+  --   opts = {
+  --     dir = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/ObsidianVault/", -- no need to call 'vim.fn.expand' here
+  --     daily_notes = {
+  --       -- Optional, if you keep daily notes in a separate directory.
+  --       folder = "calendar",
+  --       -- Optional, if you want to change the date format for daily notes.
+  --       date_format = "%Y-%m-%d"
+  --     },
+  --     -- see below for full list of options 👇
+  --   },
+  -- },
   {
     "jinh0/eyeliner.nvim",
     lazy = false,
@@ -239,5 +237,18 @@ return {
         dim = false              -- dim all other characters if set to true (recommended!)
       }
     end,
+  },
+  {
+    "ggandor/leap.nvim",
+    event = "VeryLazy",
+    dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
+    config = function(_, opts)
+      local leap = require "leap"
+      for k, v in pairs(opts) do
+        leap.opts[k] = v
+      end
+      leap.add_default_mappings(true)
+    end,
   }
+
 }

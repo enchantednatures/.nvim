@@ -5,8 +5,17 @@ return {
       { "rcarriga/nvim-dap-ui" },
       { "theHamsta/nvim-dap-virtual-text" },
       { "nvim-telescope/telescope-dap.nvim" },
-      { "jay-babu/mason-nvim-dap.nvim" },
-      { "LiadOz/nvim-dap-repl-highlights",  opts = {} },
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = "mason.nvim",
+        cmd = { "DapInstall", "DapUninstall" },
+        opts = {
+          automatic_setup = true,
+          handlers = {},
+          ensure_installed = {},
+        },
+      },
+      { "LiadOz/nvim-dap-repl-highlights", opts = {} },
     },
     -- stylua: ignore
     keys = {
@@ -154,14 +163,5 @@ return {
       end
     end,
   },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    dependencies = "mason.nvim",
-    cmd = { "DapInstall", "DapUninstall" },
-    opts = {
-      automatic_setup = true,
-      handlers = {},
-      ensure_installed = {},
-    },
-  },
+
 }
