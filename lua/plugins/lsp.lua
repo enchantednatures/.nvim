@@ -1,6 +1,4 @@
 return {
-  { "simrat39/rust-tools.nvim" },
-  "b0o/schemastore.nvim",
   {
     "simrat39/inlay-hints.nvim",
     event = { "BufRead Cargo.toml" },
@@ -19,6 +17,13 @@ return {
     end,
   },
   {
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v2.x",
+    lazy = false,
+    dependencies = {
+      { "simrat39/rust-tools.nvim" },
+      "b0o/schemastore.nvim",
+  {
     "j-hui/fidget.nvim",
     tag = "legacy",
     event = "LspAttach",
@@ -26,10 +31,8 @@ return {
       -- options
     },
   },
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v2.x",
-    lazy = false,
+
+    },
     config = function()
       -- This is where you modify the settings for lsp-zero
       -- Note: autocompletion settings will not take effect
@@ -123,27 +126,27 @@ return {
     end,
 
   },
-
-  {
-    "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    dependencies = { "nvim-lua/plenary.nvim" },
-    tag = "v0.3.0",
-    opts = {},
-    config = function(_, opts)
-      require("crates").setup(opts)
-    end,
-  },
-
   -- Autocompletion
   {
     "hrsh7th/nvim-cmp",
+    lazy = true,
+    after = "nvim-lspconfig",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
       "saadparwaiz1/cmp_luasnip",
-      "saecki/crates.nvim",
+      {
+        "saecki/crates.nvim",
+        lazy = true,
+        event = { "BufRead Cargo.toml" },
+        dependencies = { "nvim-lua/plenary.nvim" },
+        tag = "v0.3.0",
+        opts = {},
+        config = function(_, opts)
+          require("crates").setup(opts)
+        end,
+      },
       "hrsh7th/cmp-buffer",
       "lukas-reineke/cmp-under-comparator",
       "hrsh7th/cmp-path",
@@ -154,7 +157,6 @@ return {
       require("lsp-zero.cmp").extend()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-      local neogen = require("neogen")
       local icons = require("config.icons")
 
       local has_words_before = function()
@@ -203,8 +205,6 @@ return {
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
-            elseif neogen.jumpable() then
-              neogen.jump_next()
             elseif has_words_before() then
               cmp.complete()
             else
@@ -220,8 +220,6 @@ return {
               cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
               luasnip.jump(-1)
-            elseif neogen.jumpable(true) then
-              neogen.jump_prev()
             else
               fallback()
             end
@@ -328,6 +326,7 @@ return {
   },
   {
     "L3MON4D3/LuaSnip",
+    after = "nvim-cmp",
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()

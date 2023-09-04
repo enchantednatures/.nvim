@@ -52,7 +52,6 @@ return {
       vim.notify = require("notify")
     end,
   },
-  { "kdheepak/lazygit.nvim", lazy = false, },
   {
     "andymass/vim-matchup",
     event = { "BufReadPost" },
@@ -71,32 +70,6 @@ return {
     end,
   },
   { "andweeb/presence.nvim",        lazy = false },
-  -- session management
-  {
-    "folke/persistence.nvim",
-    event = "BufReadPre",
-    opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help" } },
-    -- stylua: ignore
-    keys = {
-      {
-        "<leader>qs",
-        function() require("persistence").load() end,
-        desc =
-        "Restore Session"
-      },
-      {
-        "<leader>ql",
-        function() require("persistence").load({ last = true }) end,
-        desc = "Restore Last Session"
-      },
-      {
-        "<leader>qd",
-        function() require("persistence").stop() end,
-        desc =
-        "Don't Save Current Session"
-      },
-    },
-  },
   { "editorconfig/editorconfig-vim" },
   { "m4xshen/smartcolumn.nvim",     opts = { colorcolumn = "80", }, },
   {
@@ -204,6 +177,7 @@ return {
   },
   {
     "kevinhwang91/nvim-ufo",
+    lazy = true,
     dependencies = {
       "kevinhwang91/promise-async"
     },
