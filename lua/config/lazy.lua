@@ -15,9 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Configure lazy.nvim
 require("lazy").setup({
   { "rose-pine/neovim", lazy = false, priority = 1000, name = "rose-pine" },
-  spec = {
-    { import = "plugins" },
-  },
+  spec = { { import = "plugins" }, },
   defaults = { lazy = false, version = nil },
   install = { missing = true, colorscheme = { "rose-pine-moon" } },
   checker = { enabled = true },

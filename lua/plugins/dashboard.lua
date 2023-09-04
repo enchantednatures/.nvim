@@ -11,8 +11,7 @@ return {
       dashboard.button("w", " " .. " Find text", ":Telescope live_grep <CR>"),
       dashboard.button("g", " " .. " Git", ":LazyGit <CR>"),
       dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
-      dashboard.button("s", "勒" .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
-      dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
+      dashboard.button("l", "󰒲" .. " Lazy", ":Lazy<CR>"),
       dashboard.button("q", " " .. " Quit", ":qa<CR>"),
       dashboard.button("h", "󱡅 " .. " Harpoon Marks",
         [[:lua require("harpoon.ui").toggle_quick_menu() <cr>]]),
@@ -26,13 +25,14 @@ return {
     dashboard.section.buttons.opts.hl = "AlphaButtons"
     dashboard.opts.layout[1].val = 0
 
+    local lazy = require("lazy")
     -- close Lazy and re-open when the dashboard is ready
     if vim.o.filetype == "lazy" then
       vim.cmd.close()
       vim.api.nvim_create_autocmd("User", {
         pattern = "AlphaReady",
         callback = function()
-          require("lazy").show()
+          lazy.show()
         end,
       })
     end
@@ -42,7 +42,7 @@ return {
     vim.api.nvim_create_autocmd("User", {
       pattern = "LazyVimStarted",
       callback = function()
-        local stats = require("lazy").stats()
+        local stats = lazy.stats()
         local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 
         -- local now = os.date "%d-%m-%Y %H:%M:%S"
