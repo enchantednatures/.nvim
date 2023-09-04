@@ -50,6 +50,9 @@ return {
     Repo = "",
     Octoface = "",
     Branch = "",
+    Deleted = "▸",
+    Changed = "▍",
+    TopDelete = "▾",
   },
   ui = {
     ArrowCircleDown = "",

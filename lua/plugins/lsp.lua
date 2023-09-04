@@ -1,7 +1,7 @@
 return {
   {
     "simrat39/inlay-hints.nvim",
-    event = { "BufRead Cargo.toml" },
+    event = { "BufRead Cargo.toml", "BufRead *.rs" },
     opts = {
       highlight = "Comment",
       prefix = "     > ",
@@ -9,7 +9,7 @@ return {
       only_current_line = false,
       enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
       eol = {
-        right_align = false,
+        right_align = true,
       },
     },
     config = function(_, opts)
@@ -23,14 +23,14 @@ return {
     dependencies = {
       { "simrat39/rust-tools.nvim" },
       "b0o/schemastore.nvim",
-  {
-    "j-hui/fidget.nvim",
-    tag = "legacy",
-    event = "LspAttach",
-    opts = {
-      -- options
-    },
-  },
+      {
+        "j-hui/fidget.nvim",
+        tag = "legacy",
+        event = "LspAttach",
+        opts = {
+          -- options
+        },
+      },
 
     },
     config = function()
@@ -179,6 +179,8 @@ return {
         },
 
         mapping = cmp.mapping.preset.insert({
+          ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+          ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -236,7 +238,7 @@ return {
           { name = "luasnip",                 group_index = 2 },
           { name = "buffer",                  group_index = 2, keyword_length = 5 },
           { name = "path",                    group_index = 2 },
-          -- { name = "crates",                  group_index = 2 },
+          { name = "crates",                  group_index = 2 },
         }),
         sorting = {
           priority_weight = 2,

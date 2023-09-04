@@ -23,6 +23,7 @@ require("lazy").setup({
     cache = {
       enabled = true,
     },
+    reset_packpath = true,
     rtp = {
       disabled_plugins = {
         "gzip",

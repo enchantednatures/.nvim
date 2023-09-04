@@ -21,7 +21,8 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "JoosepAlviste/nvim-ts-context-commentstring",
       "RRethy/nvim-treesitter-endwise",
-      "romgrk/nvim-treesitter-context"
+      "romgrk/nvim-treesitter-context",
+      "LiadOz/nvim-dap-repl-highlights"
     },
     build = ":TSUpdate",
     event = "BufReadPost",

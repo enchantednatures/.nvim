@@ -1,3 +1,5 @@
+local icons = require("config.icons").git
+
 return {
   {
     "sindrets/diffview.nvim",
@@ -29,25 +31,25 @@ return {
         add = { hl = "GitSignsAdd", text = "▍", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
         change = {
           hl = "GitSignsChange",
-          text = "▍",
+          text = icons.Changed,
           numhl = "GitSignsChangeNr",
           linehl = "GitSignsChangeLn",
         },
         delete = {
           hl = "GitSignsDelete",
-          text = "▸",
+          text = icons.Deleted,
           numhl = "GitSignsDeleteNr",
           linehl = "GitSignsDeleteLn",
         },
         topdelete = {
           hl = "GitSignsDelete",
-          text = "▾",
+          text = icons.TopDelete,
           numhl = "GitSignsDeleteNr",
           linehl = "GitSignsDeleteLn",
         },
         changedelete = {
           hl = "GitSignsChange",
-          text = "▍",
+          text = icons.ChangeDelete,
           numhl = "GitSignsChangeNr",
           linehl = "GitSignsChangeLn",
         },
