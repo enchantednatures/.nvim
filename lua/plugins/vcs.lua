@@ -102,13 +102,5 @@ return {
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select Hunk" })
       end,
     },
-  },
-  {
-    "mattn/vim-gist",
-    dependencies = { "mattn/webapi-vim" },
-    cmd = { "Gist" },
-    config = function()
-      vim.g.gist_open_browser_after_post = 1
-    end,
-  },
+  }
 }
