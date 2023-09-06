@@ -46,6 +46,35 @@ return {
       lsp_zero.on_attach(function(client, bufnr)
         lsp_zero.default_keymaps({ buffer = bufnr })
         require("config.lsp_keymaps").on_attach(client, bufnr)
+
+        vim.api.nvim_create_autocmd({ "BufEnter" }, {
+          pattern = { "Cargo.toml" },
+          callback = function(event)
+            local bufnr = event.buf
+
+            -- Register keymappings
+            -- local wk = require "which-key"
+            -- local keys = { mode = { "n", "v" }, ["<leader>lc"] = { name = "+Crates" } }
+            -- wk.register(keys)
+
+            local map = function(mode, lhs, rhs, desc)
+              if desc then
+                desc = desc
+              end
+              vim.keymap.set(mode, lhs, rhs,
+                { silent = true, desc = desc, buffer = bufnr, noremap = true })
+            end
+            map("n", "<leader>lc", function() end, "+Crates")
+            map("n", "<leader>lcy", "<cmd>lua require'crates'.open_repository()<cr>",
+              "Open Repository")
+            map("n", "<leader>lcp", "<cmd>lua require'crates'.show_popup()<cr>", "Show Popup")
+            map("n", "<leader>lci", "<cmd>lua require'crates'.show_crate_popup()<cr>", "Show Info")
+            map("n", "<leader>lcf", "<cmd>lua require'crates'.show_features_popup()<cr>",
+              "Show Features")
+            map("n", "<leader>lcd", "<cmd>lua require'crates'.show_dependencies_popup()<cr>",
+              "Show Dependencies")
+          end,
+        })
       end)
 
       -- todo: add keymaps
@@ -112,12 +141,30 @@ return {
               { desc = "Code actions" }, { buffer = bufnr })
             vim.keymap.set("n", "<leader>ch", rust_tools.hover_actions.hover_actions,
               { desc = "Hover action" }, { buffer = bufnr })
+            vim.keymap.set("n", "<leader>cb", rust_tools.runnables.runnables,
+              { desc = "[C]argo [B]uild" }, { buffer = bufnr })
           end,
 
           settings = {
             ["rust-analyzer"] = {
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+                runBuildScripts = true,
+              },
+              -- Add clippy lints for Rust.
               checkOnSave = {
+                allFeatures = true,
                 command = "clippy",
+                extraArgs = { "--no-deps" },
+              },
+              procMacro = {
+                enable = true,
+                ignored = {
+                  ["async-trait"] = { "async_trait" },
+                  ["napi-derive"] = { "napi" },
+                  ["async-recursion"] = { "async_recursion" },
+                },
               },
             },
           },
@@ -383,13 +430,14 @@ return {
         end,
         opts   = {
           ensure_installed = {
-            "stylua",
             "rust-analyzer",
             "sqlls",
             "sqlfmt",
             "lua-language-server",
             "debugpy",
+            "typescript-language-server",
             "codelldb",
+            "stylua",
           },
           ui = {
             icons = {

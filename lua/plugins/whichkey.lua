@@ -101,12 +101,6 @@ return {
             q = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
           },
           -- stylua: ignore
-          s = {
-            name = "+Search",
-            c = { function() require("utils.coding").cht() end, "Cheatsheets", },
-            s = { function() require("utils.coding").stack_overflow() end, "Stack Overflow", },
-            -- n = { name = "+Noice" },
-          },
           c = {
             name = "+Code",
             g = { name = "Annotation" },

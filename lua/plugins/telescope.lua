@@ -12,9 +12,35 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-project.nvim",
       "olacin/telescope-cc.nvim",
+
+      { "ThePrimeagen/git-worktree.nvim",           lazy = false },
       "ahmedkhalf/project.nvim",
       "cljoly/telescope-repo.nvim",
       "debugloop/telescope-undo.nvim",
+      {
+        "ThePrimeagen/harpoon",
+        dependencies = {
+          "nvim-lua/plenary.nvim"
+        },
+        keys = {
+          {
+            "<leader>m",
+            function(_)
+              require("harpoon.mark").add_file()
+            end,
+            desc = "Harpoon [M]ark File"
+          },
+          {
+            "<leader>hc2",
+            function(_)
+              require("harpoon.tmux").gotoTerminal(1)          -- goes to the first tmux window
+              require("harpoon.tmux").sendCommand(1, "ls -La") -- sends ls -La to tmux window 1
+              require("harpoon.tmux").sendCommand(1, 1)
+            end,
+            desc = "[H]arpoon [C]ommand 2"
+          }
+        }
+      },
       "stevearc/aerial.nvim",
       "nvim-telescope/telescope-frecency.nvim",
       {
@@ -33,7 +59,11 @@ return {
     cmd = "Telescope",
     -- stylua: ignore
     keys = {
-
+      {
+        "<leader>hm",
+        "<Cmd>Telescope harpoon marks<cr>",
+        desc = "Harpoon Menu"
+      },
       {
         "<leader>s",
         function(curr)
@@ -55,6 +85,7 @@ return {
 
       },
       { "<leader>tf", require("utils").find_files, desc = "Find Files" },
+      { "<leader>tt", "<cmd>Telescope git_worktree git_worktrees <cr>", desc = "Git Work[t]ree" },
       {
         "<leader>tc",
         "<cmd>Telescope frecency theme=dropdown previewer=false<cr>",
@@ -261,6 +292,8 @@ return {
       telescope.load_extension("menufacture")
       telescope.load_extension("conventional_commits")
       telescope.load_extension("undo")
+      telescope.load_extension("harpoon")
+      telescope.load_extension("git_worktree")
     end,
   },
   {

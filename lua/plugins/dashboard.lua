@@ -5,7 +5,11 @@ return {
     local dashboard = require("alpha.themes.dashboard")
     dashboard.section.buttons.val = {
       dashboard.button("e", "󰺾 " .. " Explorer", ":NvimTreeToggle <CR>"),
+      dashboard.button("h", "󱡅 " .. " Harpoon Marks",
+        [[:lua require("harpoon.ui").toggle_quick_menu() <cr>]]),
       dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+      dashboard.button("t", " " .. " Worktrees", ":Telescope git_worktree git_worktrees <CR>"),
+      dashboard.button("b", " " .. " Create Worktree", ":Telescope git_worktree create_git_worktree <CR>"),
       dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
       dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
       dashboard.button("w", " " .. " Find text", ":Telescope live_grep <CR>"),
@@ -13,8 +17,6 @@ return {
       dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
       dashboard.button("l", "󰒲" .. " Lazy", ":Lazy<CR>"),
       dashboard.button("q", " " .. " Quit", ":qa<CR>"),
-      dashboard.button("h", "󱡅 " .. " Harpoon Marks",
-        [[:lua require("harpoon.ui").toggle_quick_menu() <cr>]]),
     }
     for _, button in ipairs(dashboard.section.buttons.val) do
       button.opts.hl = "AlphaButtons"

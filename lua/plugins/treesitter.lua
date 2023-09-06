@@ -50,6 +50,7 @@ return {
         "proto",
         "python",
         "query",
+        "dap_repl",
         "regex",
         "rust",
         "sql",
