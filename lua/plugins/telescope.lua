@@ -15,8 +15,12 @@ return {
 
       { "ThePrimeagen/git-worktree.nvim",           lazy = false },
       "ahmedkhalf/project.nvim",
+      -- { "ANGkeith/telescope-terraform-doc.nvim" },
       "cljoly/telescope-repo.nvim",
+      "camgraff/telescope-tmux.nvim",
+      -- "fhill2/telescope-ultisnips.nvim",
       "debugloop/telescope-undo.nvim",
+      { "nvim-telescope/telescope-github.nvim" },
       {
         "ThePrimeagen/harpoon",
         dependencies = {
@@ -84,7 +88,7 @@ return {
         desc = "[/] Fuzzily search in current buffer]"
 
       },
-      { "<leader>tf", require("utils").find_files, desc = "Find Files" },
+      { "<leader>tf", require("utils").find_files,                      desc = "Find Files" },
       { "<leader>tt", "<cmd>Telescope git_worktree git_worktrees <cr>", desc = "Git Work[t]ree" },
       {
         "<leader>tc",
@@ -178,8 +182,12 @@ return {
           require("telescope").extensions.conventional_commits.conventional_commits()
         end,
         desc = "Conventional Commit"
-      }
-
+      },
+      -- {
+      --   "<leader>te",
+      --   function() require("telescope").extensions.terraform_doc() end,
+      --   desc = "[T]elescope T[e]rraform"
+      -- },
     },
     config = function(_, _)
       local telescope = require("telescope")
@@ -294,6 +302,10 @@ return {
       telescope.load_extension("undo")
       telescope.load_extension("harpoon")
       telescope.load_extension("git_worktree")
+      telescope.load_extension("gh")
+      -- telescope.load_extension("terraform_doc")
+      telescope.load_extension("tmux")
+      -- telescope.load_extension("ultisnips")
     end,
   },
   {
