@@ -143,6 +143,7 @@ return {
     },
     config = function()
       require("overseer").setup({
+        templates = { "builtin", "user.rust_build" },
         component_aliases = {
           default_neotest = {
             "on_output_summarize",

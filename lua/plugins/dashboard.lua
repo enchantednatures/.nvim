@@ -4,7 +4,7 @@ return {
   config = function()
     local dashboard = require("alpha.themes.dashboard")
     dashboard.section.buttons.val = {
-      dashboard.button("e", "󰺾 " .. " Explorer", ":NvimTreeToggle <CR>"),
+      dashboard.button("e", "󰺾 " .. " Explorer", ":Telescope file_browser <CR>"),
       dashboard.button("h", "󱡅 " .. " Harpoon Marks",
         [[:lua require("harpoon.ui").toggle_quick_menu() <cr>]]),
       dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),

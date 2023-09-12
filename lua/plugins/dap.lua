@@ -46,6 +46,11 @@ return {
         desc = "Step Back",
       },
       {
+        "<F5>",
+        function() require("dap").continue() end,
+        desc = "Continue",
+      },
+      {
         "<leader>dc",
         function() require("dap").continue() end,
         desc = "Continue",

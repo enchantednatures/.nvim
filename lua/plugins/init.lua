@@ -29,7 +29,7 @@ return {
     lazy = true,
     cmd = { "NvimTreeToggle" },
     keys = {
-      { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+      { "<leader>te", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
     },
     opts = {
       disable_netrw = false,

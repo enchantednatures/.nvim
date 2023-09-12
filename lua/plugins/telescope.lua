@@ -9,7 +9,20 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      "nvim-telescope/telescope-file-browser.nvim",
+      {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = {
+          {
+            "nvim-tree/nvim-web-devicons",
+            dependencies = { "DaikyXendo/nvim-material-icon" },
+            config = function()
+              require("nvim-web-devicons").setup({
+                override = require("nvim-material-icon").get_icons(),
+              })
+            end,
+          },
+        }
+      },
       "nvim-telescope/telescope-project.nvim",
       "olacin/telescope-cc.nvim",
 
@@ -88,8 +101,13 @@ return {
         desc = "[/] Fuzzily search in current buffer]"
 
       },
-      { "<leader>tf", require("utils").find_files,                      desc = "Find Files" },
-      { "<leader>tt", "<cmd>Telescope git_worktree git_worktrees <cr>", desc = "Git Work[t]ree" },
+      { "<leader>e",  "<cmd>Telescope file_browser default_selection_index=2 <cr>",
+                                                                                      desc =
+        "File Browser" },
+      { "<leader>tf", require("utils").find_files,                                  desc =
+      "Find Files" },
+      { "<leader>tt", "<cmd>Telescope git_worktree git_worktrees <cr>",             desc =
+      "Git Work[t]ree" },
       {
         "<leader>tc",
         "<cmd>Telescope frecency theme=dropdown previewer=false<cr>",
@@ -244,7 +262,7 @@ return {
           },
           file_browser = {
             theme = "dropdown",
-            previewer = false,
+            previewer = true,
             hijack_netrw = true,
             mappings = mappings,
           },
@@ -303,8 +321,8 @@ return {
       telescope.load_extension("harpoon")
       telescope.load_extension("git_worktree")
       telescope.load_extension("gh")
-      -- telescope.load_extension("terraform_doc")
       telescope.load_extension("tmux")
+      -- telescope.load_extension("terraform_doc")
       -- telescope.load_extension("ultisnips")
     end,
   },
