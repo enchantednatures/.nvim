@@ -74,13 +74,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   end,
 })
 
--- vim.api.nvim_create_autocmd("TransparentBackground", {
--- 	group = augroups.theme,
--- 	callback = function()
--- 		vim.api.nvim_set_hl(0, "normal", { bg = "none" })
--- 		vim.api.nvim_set_hl(0, "normalfloat", { bg = "none" })
--- 	end,
--- })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = {

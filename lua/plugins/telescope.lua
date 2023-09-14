@@ -67,7 +67,7 @@ return {
           require("telescope").load_extension "docker"
         end,
         keys = {
-          { "<leader>fd", "<Cmd>Telescope docker<CR>", desc = "Docker" },
+          { "<leader>td", "<Cmd>Telescope docker<CR>", desc = "Docker" },
         },
       },
       "molecule-man/telescope-menufacture",
@@ -101,15 +101,20 @@ return {
         desc = "[/] Fuzzily search in current buffer]"
 
       },
-      { "<leader>e",  "<cmd>Telescope file_browser default_selection_index=2 <cr>",
-                                                                                      desc =
-        "File Browser" },
-      { "<leader>tf", require("utils").find_files,                                  desc =
-      "Find Files" },
-      { "<leader>tt", "<cmd>Telescope git_worktree git_worktrees <cr>",             desc =
-      "Git Work[t]ree" },
       {
-        "<leader>tc",
+        "<leader>tf",
+        require("utils").find_files,
+        desc =
+        "Find Files"
+      },
+      {
+        "<leader>tt",
+        "<cmd>Telescope git_worktree git_worktrees <cr>",
+        desc =
+        "Git Work[t]ree"
+      },
+      {
+        "<leader>te",
         "<cmd>Telescope frecency theme=dropdown previewer=false<cr>",
         desc = "Common (FRecent)"
       },
