@@ -268,7 +268,7 @@ return {
           file_browser = {
             theme = "dropdown",
             previewer = true,
-            hijack_netrw = true,
+            hijack_netrw = false,
             mappings = mappings,
           },
           project = {

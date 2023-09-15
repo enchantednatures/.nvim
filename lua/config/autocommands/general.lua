@@ -96,6 +96,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "neoai-output",
     "neotest-output",
     "neotest-summary",
+    "octo",
     "qf",
     "query",
     "spectre_panel",
