@@ -332,6 +332,11 @@ return {
   --     -- see below for full list of options 👇
   --   },
   -- },
+  { "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
+  {
+    "AndrewRadev/exercism.vim",
+    cmd = "Exercism"
+  },
   {
     "topaxi/gh-actions.nvim",
     cmd = "GhActions",

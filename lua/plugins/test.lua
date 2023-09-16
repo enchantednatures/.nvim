@@ -85,6 +85,7 @@ return {
       "nvim-neotest/neotest-plenary",
       "nvim-neotest/neotest-vim-test",
       "rouge8/neotest-rust",
+      "alfaix/neotest-gtest"
     },
     config = function()
       local opts = {
@@ -101,6 +102,7 @@ return {
             args = { "--no-capture" },
             dap_adapter = "codelldb"
           },
+          require("neotest-gtest")
         },
         -- overseer.nvim
         consumers = {
@@ -146,7 +148,7 @@ return {
     },
     config = function()
       require("overseer").setup({
-        templates = { "builtin", "user.rust_build" },
+        templates = { "builtin", "user.rust_build", "user.cpp_build" },
         component_aliases = {
           default_neotest = {
             "on_output_summarize",
