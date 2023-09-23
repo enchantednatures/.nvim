@@ -1,13 +1,47 @@
-local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true }
+local keymap = vim.api.nvim_set_keymap
+-- Center Text on the Screen {{{
+local remapList = {
+  "p",
+  "P",
+  "<CR>",
+  "gg",
+  "H",
+  "L",
+  "n",
+  "N",
+  "%",
+  "<c-o>",
+  "<c-u>",
+  "<c-d>",
+  "<c-j>",
+  "<c-n>",
+  "<c-m>",
+  "-",
+  "+",
+  "_",
+  "{",
+  "}",
+  "[[",
+  "[*",
+  "[/",
+  "]*",
+  "]/",
+  "]]",
+  "[{",
+  "]}",
+  "g,",
+  "g;"
+}
 
+for k in pairs(remapList) do
+  keymap("n", remapList[k], remapList[k] .. "zz", opts)
+  keymap("v", remapList[k], remapList[k] .. "zz", opts)
+end
 -- Better viewing
-keymap("n", "n", "nzzzv")
-keymap("n", "N", "Nzzzv")
-keymap("n", "g,", "g,zvzz")
-keymap("n", "g;", "g;zvzz")
-
 -- Better escape using jk in insert and terminal mode
-keymap("i", "jk", "<ESC>")
+
+local keymap = vim.keymap.set
 keymap("t", "jk", "<C-\\><C-n>")
 keymap("t", "<C-h>", "<C-\\><C-n><C-w>h")
 keymap("t", "<C-j>", "<C-\\><C-n><C-w>j")
@@ -43,7 +77,6 @@ keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
 keymap("n", "J", "mzJ`z")
-keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
