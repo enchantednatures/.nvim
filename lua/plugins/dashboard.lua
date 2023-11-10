@@ -16,7 +16,8 @@ return {
       dashboard.button("w", " " .. " Find text", ":Telescope live_grep <CR>"),
       dashboard.button("T", " " .. " Todo", ":TodoTelescope <CR>"),
       dashboard.button("g", "󰊢" .. " Git", ":Neogit <CR>"),
-      dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
+      dashboard.button("c", "󰊢" .. " GitHub Actions", ":GhActions <CR>"),
+      dashboard.button(".", " " .. " Config", ":e $MYVIMRC <CR>"),
       dashboard.button("l", "󰒲" .. " Lazy", ":Lazy<CR>"),
       dashboard.button("q", " " .. " Quit", ":qa<CR>"),
     }
