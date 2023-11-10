@@ -112,6 +112,11 @@ return {
         -- settings = {}
       }
 
+      lspconfig.clangd.setup {
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+        -- settings = {}
+      }
+
       lsp_zero.skip_server_setup({ "rust_analyzer" })
 
 
