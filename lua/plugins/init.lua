@@ -114,7 +114,8 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
-    config = true,
+    main = "ibl",
+    opts = {}
   },
   {
     "stevearc/dressing.nvim",
@@ -312,26 +313,26 @@ return {
   -- {
   --   "epwalsh/obsidian.nvim",
   --   lazy = false,
-  --   event = { "BufReadPre /Users/hcasten/Library/Mobile Documents/iCloud~md~obsidian/Documents/**.md" },
-  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand':
-  --   -- event = { "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md" },
+  --   event = { "bufreadpre /users/hcasten/library/mobile documents/icloud~md~obsidian/documents/**.md" },
+  --   -- if you want to use the home shortcut '~' here you need to call 'vim.fn.expand':
+  --   -- event = { "bufreadpre " .. vim.fn.expand "~" .. "/my-vault/**.md" },
   --   dependencies = {
-  --     -- Required.
+  --     -- required.
   --     "nvim-lua/plenary.nvim",
 
   --     -- see below for full list of optional dependencies 👇
   --   },
   --   opts = {
-  --     dir = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/ObsidianVault/", -- no need to call 'vim.fn.expand' here
+  --     dir = "~/library/mobile documents/icloud~md~obsidian/documents/obsidianvault/", -- no need to call 'vim.fn.expand' here
   --     daily_notes = {
-  --       -- Optional, if you keep daily notes in a separate directory.
+  --       -- optional, if you keep daily notes in a separate directory.
   --       folder = "calendar",
-  --       -- Optional, if you want to change the date format for daily notes.
-  --       date_format = "%Y-%m-%d"
+  --       -- optional, if you want to change the date format for daily notes.
+  --       date_format = "%y-%m-%d"
   --     },
   --     -- see below for full list of options 👇
   --   },
-  -- },
+  -- }
   { "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
   {
     "AndrewRadev/exercism.vim",
