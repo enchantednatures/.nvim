@@ -4,6 +4,7 @@ return {
     Boolean = "",
     Class = "",
     Color = "",
+    Copilot = "",
     Constant = "",
     Constructor = "",
     Enum = "",
