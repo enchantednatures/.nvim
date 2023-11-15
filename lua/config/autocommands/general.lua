@@ -98,6 +98,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "neotest-summary",
     "octo",
     "qf",
+    "dbout",
     "query",
     "spectre_panel",
     "startuptime",
