@@ -3,7 +3,8 @@ local icons = require("config.icons").git
 return {
   {
     "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles",
+      "DiffviewFileHistory" },
     config = true,
   },
   {
@@ -33,12 +34,14 @@ return {
   },
   {
     "tpope/vim-fugitive",
-    cmd = { "Git", "GBrowse", "Gdiffsplit", "Gvdiffsplit", "G" },
+    cmd = { "Git", "GBrowse", "Gdiffsplit", "Gvdiffsplit", "G", "GDiff", "Glog" },
     dependencies = {
       "tpope/vim-rhubarb",
     },
+    keys = {
+      { "<leader>glp", ":G log -p -- % <CR>", desc = "Git Log Patch" }
+    },
   },
-
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
