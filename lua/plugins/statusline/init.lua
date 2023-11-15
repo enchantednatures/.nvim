@@ -2,14 +2,25 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-
-    config = function()
+    config = function(_, opts)
       local components = require "plugins.statusline.components"
+      -- local copilot_cfg = {
+      --   function()
+      --     local icon = require("config.icons").kind.Copilot
+      --     local status = require("copilot.api").status.data
+      --     return icon .. (status.message or "")
+      --   end,
+      --   cond = function()
+      --     local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
+      --     return ok and #clients > 0
+      --   end,
+      -- }
 
       require("lualine").setup {
         options = {
           icons_enabled = true,
           theme = "auto",
+           
           component_separators = {},
           section_separators = {},
           disabled_filetypes = {
@@ -36,6 +47,7 @@ return {
           },
           lualine_x = {
             "filename",
+            -- copilot_cfg,
             components.spaces,
             "encoding",
             "fileformat",
