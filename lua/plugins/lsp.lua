@@ -1,7 +1,7 @@
 return {
   {
     "simrat39/inlay-hints.nvim",
-    event = { "BufRead Cargo.toml", "BufRead *.rs" },
+    event = { "BufRead Cargo.toml, BufRead *.rs" },
     opts = {
       highlight = "Comment",
       prefix = "     > ",
