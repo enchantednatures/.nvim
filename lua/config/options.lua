@@ -81,7 +81,8 @@ vim.opt.updatetime = 50
 vim.opt.clipboard = "unnamedplus"
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
+vim.opt.updatetime = 100
+vim.g.skip_ts_context_commentstring_module = true
 
 
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })

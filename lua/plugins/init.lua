@@ -363,6 +363,9 @@ return {
     end,
   },
   {
+    "folke/neoconf.nvim"
+  },
+  {
     "ggandor/leap.nvim",
     event = "VeryLazy",
     dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },

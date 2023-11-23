@@ -96,7 +96,7 @@ keymap({ "n", "v" }, "<leader>d", [["_d]])
 keymap("i", "<C-c>", "<Esc>")
 
 keymap("n", "Q", "<nop>")
-keymap("n", "<leader>f", vim.lsp.buf.format)
+-- keymap("n", "<leader>f", vim.lsp.buf.format)
 
 keymap("n", "<C-k>", "<cmd>cnext<CR>zz")
 keymap("n", "<C-j>", "<cmd>cprev<CR>zz")

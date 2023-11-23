@@ -30,64 +30,102 @@ return {
                 keymaps = {
                   ["a="] = {
                     query = "@assignment.outer"
-                    , desc = "Select outer part of an assignment" },
+                    ,
+                    desc = "Select outer part of an assignment"
+                  },
                   ["i="] = {
                     query = "@assignment.inner"
-                    , desc = "Select inner part of an assignment" },
+                    ,
+                    desc = "Select inner part of an assignment"
+                  },
                   ["l="] = {
                     query = "@assignment.lhs"
-                    , desc = "Select left hand side of an assignment" },
+                    ,
+                    desc = "Select left hand side of an assignment"
+                  },
                   ["r="] = {
                     query = "@assignment.rhs"
-                    , desc = "Select right hand side of an assignment" },
+                    ,
+                    desc = "Select right hand side of an assignment"
+                  },
                   ["a:"] = {
                     query = "@property.outer"
-                    , desc = "Select outer part of an object property" },
+                    ,
+                    desc = "Select outer part of an object property"
+                  },
                   ["i:"] = {
                     query = "@property.inner"
-                    , desc = "Select inner part of an object property" },
+                    ,
+                    desc = "Select inner part of an object property"
+                  },
                   ["l:"] = {
                     query = "@property.lhs"
-                    , desc = "Select left part of an object property" },
+                    ,
+                    desc = "Select left part of an object property"
+                  },
                   ["r:"] = {
                     query = "@property.rhs"
-                    , desc = "Select right part of an object property" },
+                    ,
+                    desc = "Select right part of an object property"
+                  },
                   ["aa"] = {
                     query = "@parameter.outer"
-                    , desc = "Select outer part of a parameter/argument" },
+                    ,
+                    desc = "Select outer part of a parameter/argument"
+                  },
                   ["ia"] = {
                     query = "@parameter.inner"
-                    , desc = "Select inner part of a parameter/argument" },
+                    ,
+                    desc = "Select inner part of a parameter/argument"
+                  },
                   ["ai"] = {
                     query = "@conditional.outer"
-                    , desc = "Select outer part of a conditional" },
+                    ,
+                    desc = "Select outer part of a conditional"
+                  },
                   ["ii"] = {
                     query = "@conditional.inner"
-                    , desc = "Select inner part of a conditional" },
+                    ,
+                    desc = "Select inner part of a conditional"
+                  },
                   ["al"] = {
                     query = "@loop.outer"
-                    , desc = "Select outer part of a loop" },
+                    ,
+                    desc = "Select outer part of a loop"
+                  },
                   ["il"] = {
                     query = "@loop.inner"
-                    , desc = "Select inner part of a loop" },
+                    ,
+                    desc = "Select inner part of a loop"
+                  },
                   ["af"] = {
                     query = "@call.outer"
-                    , desc = "Select outer part of a function call" },
+                    ,
+                    desc = "Select outer part of a function call"
+                  },
                   ["if"] = {
                     query = "@call.inner"
-                    , desc = "Select inner part of a function call" },
+                    ,
+                    desc = "Select inner part of a function call"
+                  },
                   ["am"] = {
                     query = "@function.outer",
-                    desc = "Select outer part of a method/function definition" },
+                    desc = "Select outer part of a method/function definition"
+                  },
                   ["im"] = {
                     query = "@function.inner",
-                    desc = "Select inner part of a method/function definition" },
+                    desc = "Select inner part of a method/function definition"
+                  },
                   ["ac"] = {
                     query = "@class.outer"
-                    , desc = "Select outer part of a class" },
+                    ,
+                    desc = "Select outer part of a class"
+                  },
                   ["ic"] = {
                     query = "@class.inner"
-                    , desc = "Select inner part of a class" },
+                    ,
+                    desc = "Select inner part of a class"
+                  },
                 },
               },
               swap = {
@@ -156,7 +194,7 @@ return {
           -- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
         end,
       },
-      "JoosepAlviste/nvim-ts-context-commentstring",
+      { "JoosepAlviste/nvim-ts-context-commentstring" },
       "RRethy/nvim-treesitter-endwise",
       "romgrk/nvim-treesitter-context",
       "LiadOz/nvim-dap-repl-highlights"
@@ -200,7 +238,7 @@ return {
       },
       highlight = { enable = true },
       indent = { enable = true, disable = { "python" } },
-      context_commentstring = { enable = true },
+      -- context_commentstring = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
