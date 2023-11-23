@@ -17,6 +17,25 @@ return {
     end,
   },
   {
+    "nvimtools/none-ls.nvim",
+    event = "BufReadPre",
+    dependencies = { "mason.nvim" },
+    config = function()
+      local nls = require "null-ls"
+      nls.setup {
+        sources = {
+          nls.builtins.formatting.stylua,
+          nls.builtins.formatting.black,
+          nls.builtins.formatting.shfmt,
+          nls.builtins.formatting.prettierd,
+          nls.builtins.formatting.htmlbeautifier,
+          nls.builtins.formatting.leptosfmt
+          -- nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
+        },
+      }
+    end,
+  },
+  {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     build = ":Copilot auth",
