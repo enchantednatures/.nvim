@@ -231,7 +231,9 @@ return {
           ["?"] = actions_layout.toggle_preview,
         },
         n = {
-          ["<c-t>"] = trouble.open_with_trouble
+          ["<c-t>"] = trouble.open_with_trouble,
+          ["<C-j>"] = actions.move_selection_next,
+          ["<C-k>"] = actions.move_selection_previous,
         },
       }
 

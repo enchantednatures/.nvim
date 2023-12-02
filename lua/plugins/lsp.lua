@@ -1,38 +1,41 @@
 return {
-  {
-    "simrat39/inlay-hints.nvim",
-    event = { "BufRead Cargo.toml, BufRead *.rs" },
-    opts = {
-      highlight = "Comment",
-      prefix = "     > ",
-      aligned = false,
-      only_current_line = false,
-      enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
-      eol = {
-        right_align = true,
-      },
-    },
-    config = function(_, opts)
-      require("inlay-hints").setup(opts)
-    end,
-  },
+  -- {
+  --   "simrat39/inlay-hints.nvim",
+  --   event = { "BufRead Cargo.toml, BufRead *.rs" },
+  --   opts = {
+  --     highlight = "Comment",
+  --     prefix = "     > ",
+  --     aligned = false,
+  --     only_current_line = false,
+  --     enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
+  --     eol = {
+  --       right_align = true,
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("inlay-hints").setup(opts)
+  --   end,
+  -- },
   {
     "nvimtools/none-ls.nvim",
     event = "BufReadPre",
     dependencies = { "mason.nvim" },
     config = function()
-      local nls = require "null-ls"
-      nls.setup {
+      local nls = require("null-ls")
+      nls.setup({
         sources = {
-          nls.builtins.formatting.stylua,
+          -- nls.builtins.formatting.stylua,
           nls.builtins.formatting.black,
           nls.builtins.formatting.shfmt,
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.htmlbeautifier,
-          nls.builtins.formatting.leptosfmt
+          nls.builtins.formatting.rustfmt.with({
+            extra_args = { "--edition=2021" }
+          }),
+          nls.builtins.formatting.leptosfmt,
           -- nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
         },
-      }
+      })
     end,
   },
   {
@@ -67,12 +70,19 @@ return {
       end
     end,
   },
+
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^3", -- Recommended
+    ft = { "rust" },
+  },
   {
     "VonHeikemen/lsp-zero.nvim",
     branch = "v2.x",
     lazy = false,
     dependencies = {
-      { "simrat39/rust-tools.nvim" },
+      -- { "simrat39/rust-tools.nvim" },
+
       "b0o/schemastore.nvim",
       {
         "j-hui/fidget.nvim",
@@ -82,12 +92,10 @@ return {
           -- options
         },
       },
-
     },
     config = function()
       -- This is where you modify the settings for lsp-zero
       -- Note: autocompletion settings will not take effect
-
 
       local lsp_zero = require("lsp-zero").preset({})
 
@@ -112,18 +120,34 @@ return {
               if desc then
                 desc = desc
               end
-              vim.keymap.set(mode, lhs, rhs,
-                { silent = true, desc = desc, buffer = bufnr, noremap = true })
+              vim.keymap.set(
+                mode,
+                lhs,
+                rhs,
+                { silent = true, desc = desc, buffer = bufnr, noremap = true }
+              )
             end
             map("n", "<leader>lc", function() end, "+Crates")
-            map("n", "<leader>lcy", "<cmd>lua require'crates'.open_repository()<cr>",
-              "Open Repository")
+            map(
+              "n",
+              "<leader>lcy",
+              "<cmd>lua require'crates'.open_repository()<cr>",
+              "Open Repository"
+            )
             map("n", "<leader>lcp", "<cmd>lua require'crates'.show_popup()<cr>", "Show Popup")
             map("n", "<leader>lci", "<cmd>lua require'crates'.show_crate_popup()<cr>", "Show Info")
-            map("n", "<leader>lcf", "<cmd>lua require'crates'.show_features_popup()<cr>",
-              "Show Features")
-            map("n", "<leader>lcd", "<cmd>lua require'crates'.show_dependencies_popup()<cr>",
-              "Show Dependencies")
+            map(
+              "n",
+              "<leader>lcf",
+              "<cmd>lua require'crates'.show_features_popup()<cr>",
+              "Show Features"
+            )
+            map(
+              "n",
+              "<leader>lcd",
+              "<cmd>lua require'crates'.show_dependencies_popup()<cr>",
+              "Show Dependencies"
+            )
           end,
         })
       end)
@@ -137,15 +161,15 @@ return {
           lsp_zero.default_keymaps({ buffer = bufnr })
         end,
       })
-      lspconfig.jsonls.setup {
+      lspconfig.jsonls.setup({
         settings = {
           json = {
             schemas = require("schemastore").json.schemas(),
             validate = { enable = true },
           },
         },
-      }
-      lspconfig.yamlls.setup {
+      })
+      lspconfig.yamlls.setup({
         settings = {
           yaml = {
             schemaStore = {
@@ -156,78 +180,21 @@ return {
             schemas = require("schemastore").yaml.schemas(),
           },
         },
-      }
+      })
 
-      lspconfig.spectral.setup {
+      lspconfig.spectral.setup({
         filetypes = { "spec.yaml", "spec.yml" },
         -- settings = {}
-      }
+      })
 
-      lspconfig.clangd.setup {
+      lspconfig.clangd.setup({
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         -- settings = {}
-      }
+      })
 
       lsp_zero.skip_server_setup({ "rust_analyzer" })
-
-
       lsp_zero.setup()
-
-      local rust_tools = require("rust-tools")
-
-      rust_tools.setup({
-        tools = {
-          runnables = {
-            use_telescope = true,
-          },
-
-          inlay_hints = {
-            auto = true,
-            show_parameter_hints = true,
-            parameter_hints_prefix = "<- ",
-            other_hints_prefix = "=> ",
-          },
-          hover_actions = {
-            auto_focus = true
-          }
-        },
-        server = {
-          on_attach = function(_, bufnr)
-            vim.keymap.set("n", "<Leader>ca", rust_tools.code_action_group.code_action_group,
-              { desc = "Code actions" }, { buffer = bufnr })
-            vim.keymap.set("n", "<leader>ch", rust_tools.hover_actions.hover_actions,
-              { desc = "Hover action" }, { buffer = bufnr })
-            vim.keymap.set("n", "<leader>cb", rust_tools.runnables.runnables,
-              { desc = "[C]argo [B]uild" }, { buffer = bufnr })
-          end,
-
-          settings = {
-            ["rust-analyzer"] = {
-              cargo = {
-                allFeatures = true,
-                loadOutDirsFromCheck = true,
-                runBuildScripts = true,
-              },
-              -- Add clippy lints for Rust.
-              -- checkOnSave = {
-              --   allFeatures = true,
-              --   command = "clippy",
-              --   extraArgs = { "--no-deps" },
-              -- },
-              procMacro = {
-                enable = true,
-                ignored = {
-                  ["async-trait"] = { "async_trait" },
-                  ["napi-derive"] = { "napi" },
-                  ["async-recursion"] = { "async_recursion" },
-                },
-              },
-            },
-          },
-        }
-      })
     end,
-
   },
   -- Autocompletion
   {
@@ -268,7 +235,8 @@ return {
         end
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0
-            and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+            and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$")
+            == nil
       end
       local lspkind = require("lspkind")
       cmp.setup({
@@ -282,8 +250,8 @@ return {
         },
 
         mapping = cmp.mapping.preset.insert({
-          ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-          ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+          ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -423,8 +391,8 @@ return {
           {
             name = "cmdline",
             option = {
-              ignore_cmds = { "Man", "!" }
-            }
+              ignore_cmds = { "Man", "!" },
+            },
           },
         }),
       })
@@ -479,19 +447,18 @@ return {
           "neovim/nvim-lspconfig",
           "SmiteshP/nvim-navic",
           "MunifTanjim/nui.nvim",
-          "numToStr/Comment.nvim",        -- Optional
-          "nvim-telescope/telescope.nvim" -- Optional
+          "numToStr/Comment.nvim",         -- Optional
+          "nvim-telescope/telescope.nvim", -- Optional
         },
-        opts = { lsp = { auto_attach = true } }
+        opts = { lsp = { auto_attach = true } },
       },
       {
         "williamboman/mason.nvim",
-        build  = function()
+        build = function()
           pcall(vim.api.nvim_command, "MasonUpdate")
         end,
-        opts   = {
+        opts = {
           ensure_installed = {
-            "rust-analyzer",
             "sqlls",
             "sqlfmt",
             "lua-language-server",
@@ -506,8 +473,7 @@ return {
               package_pending = "",
               package_uninstalled = "",
             },
-          }
-
+          },
         },
         config = function(_, opts)
           require("mason").setup()
@@ -521,6 +487,20 @@ return {
         end,
       },
     },
+
+    -- opts = {
+    --   inlay_hints = {
+    --     enabled = true,
+    --   },
+    -- },
+    -- highlight = "Comment",
+    -- prefix = "     > ",
+    -- aligned = false,
+    -- only_current_line = false,
+    -- enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
+    -- eol = {
+    --   right_align = true,
+    -- },
   },
   {
     "utilyre/barbecue.nvim",
@@ -537,8 +517,16 @@ return {
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
-      { "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics" },
-      { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+      {
+        "<leader>cd",
+        "<cmd>TroubleToggle document_diagnostics<cr>",
+        desc = "Document Diagnostics",
+      },
+      {
+        "<leader>cD",
+        "<cmd>TroubleToggle workspace_diagnostics<cr>",
+        desc = "Workspace Diagnostics",
+      },
     },
   },
 }
