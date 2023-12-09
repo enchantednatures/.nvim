@@ -70,7 +70,6 @@ return {
       end
     end,
   },
-
   {
     "mrcjkb/rustaceanvim",
     version = "^3", -- Recommended
@@ -397,19 +396,16 @@ return {
         }),
       })
 
-      -- Auto pairs
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+      -- -- Auto pairs
+      -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
     end,
   },
   {
     "L3MON4D3/LuaSnip",
     after = "nvim-cmp",
     dependencies = {
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
+      "rafamadriz/friendly-snippets"
     },
     build = "make install_jsregexp",
     opts = {
