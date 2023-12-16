@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       code_lens()
     end
     -- Formatting
-    if client.server_capabilities.documentFormattingProvider and custom_nvim.format_on_save.enable then
+    if client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = augroups.autoformat,
         pattern = "*",
