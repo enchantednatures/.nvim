@@ -24,6 +24,7 @@ return {
         }
       },
       "nvim-telescope/telescope-project.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
       "olacin/telescope-cc.nvim",
 
       { "ThePrimeagen/git-worktree.nvim",           lazy = false },
@@ -144,7 +145,12 @@ return {
         desc = "Git Repos"
       },
       {
-        "<leader>td",
+        "<leader>cd",
+        "<cmd>Telescope diagnostics<cr>",
+        desc = "Document Diagnostics",
+      },
+      {
+        "<leader>tD",
         function()
           require("telescope.builtin").diagnostics()
         end,
@@ -290,6 +296,11 @@ return {
               },
             },
           },
+          -- ["ui-select"] = {
+          --   require("telescope.themes").get_dropdown {
+          --     codeactions = true
+          --     -- even more opts
+          --   } },
           undo = {
             side_by_side = true,
             layout_strategy = "vertical",
@@ -329,6 +340,7 @@ return {
       telescope.load_extension("git_worktree")
       telescope.load_extension("gh")
       telescope.load_extension("tmux")
+      telescope.load_extension("ui-select")
       -- telescope.load_extension("terraform_doc")
       -- telescope.load_extension("ultisnips")
     end,
