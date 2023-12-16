@@ -1,21 +1,9 @@
 return {
-  -- {
-  --   "simrat39/inlay-hints.nvim",
-  --   event = { "BufRead Cargo.toml, BufRead *.rs" },
-  --   opts = {
-  --     highlight = "Comment",
-  --     prefix = "     > ",
-  --     aligned = false,
-  --     only_current_line = false,
-  --     enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
-  --     eol = {
-  --       right_align = true,
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     require("inlay-hints").setup(opts)
-  --   end,
-  -- },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^3", -- Recommended
+    ft = { "rust" },
+  },
   {
     "nvimtools/none-ls.nvim",
     event = "BufReadPre",
@@ -29,6 +17,10 @@ return {
           nls.builtins.formatting.shfmt,
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.htmlbeautifier,
+          nls.builtins.code_actions.gomodifytags,
+          nls.builtins.code_actions.impl,
+          nls.builtins.formatting.yamlfmt,
+          nls.builtins.formatting.fixjson,
           nls.builtins.formatting.rustfmt.with({
             extra_args = { "--edition=2021" }
           }),
@@ -71,9 +63,21 @@ return {
     end,
   },
   {
-    "mrcjkb/rustaceanvim",
-    version = "^3", -- Recommended
-    ft = { "rust" },
+    "nvimdev/lspsaga.nvim",
+    lazy = false,
+    keys = {
+      { "<M-CR>", "lspsaga code_action code_action <CR>", "code_action" }
+
+    },
+    config = function()
+      require("lspsaga").setup({
+        -- vim.keymap.set({ "n", "t", "<A-d>", "<cmd>Lspsaga term_toggle" })
+      })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons"      -- optional
+    }
   },
   {
     "VonHeikemen/lsp-zero.nvim",
@@ -81,7 +85,6 @@ return {
     lazy = false,
     dependencies = {
       -- { "simrat39/rust-tools.nvim" },
-
       "b0o/schemastore.nvim",
       {
         "j-hui/fidget.nvim",
@@ -188,9 +191,44 @@ return {
 
       lspconfig.clangd.setup({
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-        -- settings = {}
       })
 
+      -- lspconfig.rust_analyzer.setup({
+      --   settings = {
+      --     ["rust-analyzer"] = {
+      --       imports = {
+      --         granularity = {
+      --           group = "module",
+      --         },
+      --         prefix = "self",
+      --       },
+      --       cargo = {
+      --         allFeatures = true,
+      --         loadOutDirsFromCheck = true,
+      --         buildScripts = {
+      --           enable = true,
+      --         },
+      --       },
+      --       checkOnSave = {
+      --         allFeatures = true,
+      --         command = "clippy",
+      --         extraArgs = { "--no-deps" },
+      --       },
+      --       procMacro = {
+      --         enable = true,
+      --         ignored = {
+      --           ["async-trait"] = { "async_trait" },
+      --           ["napi-derive"] = { "napi" },
+      --           ["async-recursion"] = { "async_recursion" },
+      --           leptos_macro = {
+      --             "component",
+      --             "server"
+      --           }
+      --         }
+      --       }
+      --     },
+      --   },
+      -- })
       lsp_zero.skip_server_setup({ "rust_analyzer" })
       lsp_zero.setup()
     end,
@@ -462,6 +500,7 @@ return {
             "typescript-language-server",
             "codelldb",
             "stylua",
+            "impl",
           },
           ui = {
             icons = {
@@ -483,20 +522,6 @@ return {
         end,
       },
     },
-
-    -- opts = {
-    --   inlay_hints = {
-    --     enabled = true,
-    --   },
-    -- },
-    -- highlight = "Comment",
-    -- prefix = "     > ",
-    -- aligned = false,
-    -- only_current_line = false,
-    -- enabled = { "ChainingHint", "TypeHint", "ParameterHint" },
-    -- eol = {
-    --   right_align = true,
-    -- },
   },
   {
     "utilyre/barbecue.nvim",
@@ -511,18 +536,6 @@ return {
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
-    keys = {
-      {
-        "<leader>cd",
-        "<cmd>TroubleToggle document_diagnostics<cr>",
-        desc = "Document Diagnostics",
-      },
-      {
-        "<leader>cD",
-        "<cmd>TroubleToggle workspace_diagnostics<cr>",
-        desc = "Workspace Diagnostics",
-      },
-    },
+    opts = { use_diagnostic_signs = false },
   },
 }

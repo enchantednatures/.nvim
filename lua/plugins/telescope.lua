@@ -223,7 +223,7 @@ return {
       local icons = require("config.icons")
       local actions = require("telescope.actions")
       local actions_layout = require("telescope.actions.layout")
-      local trouble = require("trouble.providers.telescope")
+      -- local trouble = require("trouble.providers.telescope")
       local cc_actions = require("telescope._extensions.conventional_commits.actions")
 
 
@@ -233,11 +233,11 @@ return {
           ["<C-k>"] = actions.move_selection_previous,
           ["<C-n>"] = actions.cycle_history_next,
           ["<C-p>"] = actions.cycle_history_prev,
-          ["<c-t>"] = trouble.open_with_trouble,
+          -- ["<c-t>"] = trouble.open_with_trouble,
           ["?"] = actions_layout.toggle_preview,
         },
         n = {
-          ["<c-t>"] = trouble.open_with_trouble,
+          -- ["<c-t>"] = trouble.open_with_trouble,
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
         },
