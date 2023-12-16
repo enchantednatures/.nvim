@@ -1,6 +1,6 @@
 local bufnr = vim.api.nvim_get_current_buf()
-
-vim.lsp.inlay_hint(0)
+-- vim.keymap.set("n", "<M-CR>", vim.lsp.buf.code_action, { buffer = bufnr })
+-- vim.lsp.inlay_hint(0)
 
 vim.keymap.set(
   "n",
@@ -57,17 +57,26 @@ vim.g.rustaceanvim = {
   },
   server = {
     settings = {
+
       ["rust-analyzer"] = {
+        imports = {
+          granularity = {
+            group = "module",
+          },
+          prefix = "self",
+        },
         cargo = {
           allFeatures = true,
           loadOutDirsFromCheck = true,
-          runBuildScripts = true,
+          buildScripts = {
+            enable = true,
+          },
         },
-        -- checkOnSave = {
-        --   allFeatures = true,
-        --   command = "clippy",
-        --   extraArgs = { "--no-deps" },
-        -- },
+        checkOnSave = {
+          allFeatures = true,
+          command = "clippy",
+          extraArgs = { "--no-deps" },
+        },
         procMacro = {
           enable = true,
           ignored = {
@@ -78,8 +87,8 @@ vim.g.rustaceanvim = {
               "component",
               "server"
             }
-          },
-        },
+          }
+        }
       },
     },
   },
