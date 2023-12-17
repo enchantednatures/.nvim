@@ -2,7 +2,7 @@ return {
   {
     "rose-pine/neovim",
     lazy = false,
-    config = function(_, opts)
+    config = function(_, _)
       require("rose-pine").setup({
         --- @usage 'auto'|'main'|'moon'|'dawn'
         variant = "moon",
@@ -171,6 +171,13 @@ return {
       scope = "line",
       disabled_filetypes = { "help", "text", "markdown", "alpha", "Telescope" },
     },
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    lazy = false,
+    config = function()
+      require("lsp_lines").setup()
+    end,
   },
   {
     "windwp/nvim-spectre",

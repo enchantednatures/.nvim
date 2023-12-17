@@ -66,7 +66,7 @@ return {
     "nvimdev/lspsaga.nvim",
     lazy = false,
     keys = {
-      { "<M-CR>", "lspsaga code_action code_action <CR>", "code_action" }
+      { "<M-CR>", "Lspsaga code_action code_action <CR>", "code_action" }
 
     },
     config = function()
@@ -84,7 +84,6 @@ return {
     branch = "v2.x",
     lazy = false,
     dependencies = {
-      -- { "simrat39/rust-tools.nvim" },
       "b0o/schemastore.nvim",
       {
         "j-hui/fidget.nvim",
@@ -193,42 +192,6 @@ return {
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
       })
 
-      -- lspconfig.rust_analyzer.setup({
-      --   settings = {
-      --     ["rust-analyzer"] = {
-      --       imports = {
-      --         granularity = {
-      --           group = "module",
-      --         },
-      --         prefix = "self",
-      --       },
-      --       cargo = {
-      --         allFeatures = true,
-      --         loadOutDirsFromCheck = true,
-      --         buildScripts = {
-      --           enable = true,
-      --         },
-      --       },
-      --       checkOnSave = {
-      --         allFeatures = true,
-      --         command = "clippy",
-      --         extraArgs = { "--no-deps" },
-      --       },
-      --       procMacro = {
-      --         enable = true,
-      --         ignored = {
-      --           ["async-trait"] = { "async_trait" },
-      --           ["napi-derive"] = { "napi" },
-      --           ["async-recursion"] = { "async_recursion" },
-      --           leptos_macro = {
-      --             "component",
-      --             "server"
-      --           }
-      --         }
-      --       }
-      --     },
-      --   },
-      -- })
       lsp_zero.skip_server_setup({ "rust_analyzer" })
       lsp_zero.setup()
     end,
@@ -532,10 +495,6 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = true,
-  },
-  {
-    "folke/trouble.nvim",
-    cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = false },
-  },
+  }
+
 }

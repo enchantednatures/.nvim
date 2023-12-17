@@ -1,6 +1,5 @@
 local bufnr = vim.api.nvim_get_current_buf()
--- vim.keymap.set("n", "<M-CR>", vim.lsp.buf.code_action, { buffer = bufnr })
--- vim.lsp.inlay_hint(0)
+vim.lsp.inlay_hint.enable()
 
 vim.keymap.set(
   "n",
