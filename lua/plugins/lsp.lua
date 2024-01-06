@@ -15,6 +15,13 @@ return {
           -- nls.builtins.formatting.stylua,
           nls.builtins.formatting.black,
           nls.builtins.formatting.shfmt,
+          -- nls.builtins.formatting.pg_format,
+          nls.builtins.formatting.sqlfluff.with({
+            extra_args = { "--dialect", "postgres" }, -- change to your dialect
+          }),
+          nls.builtins.diagnostics.sqlfluff.with({
+            extra_args = { "--dialect", "postgres" }, -- change to your dialect
+          }),
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.htmlbeautifier,
           nls.builtins.code_actions.gomodifytags,
@@ -76,7 +83,9 @@ return {
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons"      -- optional
+      "nvim-tree/nvim-web-devicons",     -- optional
+
+
     }
   },
   {
@@ -93,6 +102,7 @@ return {
           -- options
         },
       },
+
     },
     config = function()
       -- This is where you modify the settings for lsp-zero
@@ -176,9 +186,34 @@ return {
             schemaStore = {
               -- You must disable built-in schemaStore support if you want to use
               -- this plugin and its advanced options like `ignore`.
-              enable = false,
+              enable = true,
+              url = "https://www.schemastore.org/api/json/catalog.json",
+              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+              -- url = "",
             },
-            schemas = require("schemastore").yaml.schemas(),
+            -- schemas = require("schemastore").yaml.schemas(),
+            schemas = {
+              kubernetes = "*.yaml",
+              ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+              ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+              ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+              ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+              ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+              ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
+              ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+              ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
+              ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+              ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] =
+              "*api*.{yml,yaml}",
+              ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] =
+              "*docker-compose*.{yml,yaml}",
+              ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] =
+              "*flow*.{yml,yaml}",
+            },
+            format = { enabled = false },
+            validate = false,
+            completion = true,
+            hover = true,
           },
         },
       })
@@ -193,6 +228,8 @@ return {
       })
 
       lsp_zero.skip_server_setup({ "rust_analyzer" })
+
+
       lsp_zero.setup()
     end,
   },
@@ -222,6 +259,14 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "onsails/lspkind.nvim",
+      {
+        "kristijanhusak/vim-dadbod-completion",
+        ft = { "sql", "dbout" },
+        dependencies = {
+          "tpope/vim-dadbod",
+        },
+      }
+
     },
     config = function()
       require("lsp-zero.cmp").extend()
@@ -353,6 +398,7 @@ return {
                 luasnip = "(Snippet)",
                 buffer = "(Buffer)",
                 gh_issues = "(Issue)",
+                ["vim-dadbod-completion"] = "(DB)",
               }
 
               local duplicates = {
@@ -385,21 +431,19 @@ return {
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
+        sources = cmp.config.sources(
+        -- {
+        --   { name = "path" },
+        -- },
           {
-            name = "cmdline",
-            option = {
-              ignore_cmds = { "Man", "!" },
+            {
+              name = "cmdline",
+              option = {
+                ignore_cmds = { "Man", "!" },
+              },
             },
-          },
-        }),
+          }),
       })
-
-      -- -- Auto pairs
-      -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
     end,
   },
   {
@@ -408,6 +452,9 @@ return {
     dependencies = {
       "rafamadriz/friendly-snippets"
     },
+    config = function(_, _)
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
     build = "make install_jsregexp",
     opts = {
       history = true,

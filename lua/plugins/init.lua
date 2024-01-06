@@ -234,11 +234,33 @@ return {
     },
   },
   {
-    "kristijanhusak/vim-dadbod-ui",
+    "tpope/vim-dadbod",
     lazy = false,
     dependencies = {
-      "tpope/vim-dadbod"
-    }
+      "kristijanhusak/vim-dadbod-ui",
+    },
+    config = function(_, _)
+      vim.g.db_ui_show_help = 0
+      vim.g.db_ui_win_position = "right"
+      vim.g.db_ui_use_nerd_fonts = 1
+      vim.g.db_ui_winwidth = 45
+      vim.g.db_ui_save_location = "~/.config/nvim/db_ui_history"
+      vim.g.db_ui_table_helpers = {
+        postgres = {
+          primary_key = "id",
+          foreign_key = "id",
+          join_string = "->",
+          delete_cascade = "CASCADE",
+          delete_restrict = "RESTRICT",
+          delete_set_null = "SET NULL",
+          delete_set_default = "SET DEFAULT",
+        },
+      }
+      vim.g.db_ui_save_location = vim.fn.stdpath "config" ..
+          require("plenary.path").path.sep .. "db_ui"
+
+
+    end,
   },
   {
     "numToStr/Comment.nvim",

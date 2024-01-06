@@ -1,46 +1,4 @@
-local bufnr = vim.api.nvim_get_current_buf()
-vim.lsp.inlay_hint.enable()
-
-vim.keymap.set(
-  "n",
-  "<leader>ca",
-  function()
-    vim.cmd.RustLsp("codeAction")
-  end,
-  { silent = true, buffer = bufnr }
-)
-
-vim.keymap.set("n", "<leader>cI", function()
-    vim.lsp.inlay_hint(bufnr)
-  end,
-
-  { desc = "Inlay Hints" },
-  { buffer = bufnr }
-)
-vim.keymap.set(
-  "n",
-  "<leader>ch",
-  function()
-    vim.cmd.RustLsp { "hover", "actions" }
-  end,
-  { desc = "Hover action" },
-  { buffer = bufnr }
-)
-
-vim.keymap.set(
-  "n",
-  "<leader>cb",
-  function()
-    vim.cmd.RustLsp { "runnables" }
-  end,
-  { desc = "[C]argo [B]uild" },
-  { buffer = bufnr }
-)
-
 vim.g.rustaceanvim = {
-  -- Plugin configuration
-  -- LSP configuration
-  -- DAP configuration
   dap = {},
 
   tools = {
@@ -55,8 +13,37 @@ vim.g.rustaceanvim = {
     },
   },
   server = {
-    settings = {
+    on_attach = function(_, bufnr)
+      vim.keymap.set(
+        "n",
+        "<leader>ca",
+        function()
+          vim.cmd.RustLsp("codeAction")
+        end,
+        { silent = true, buffer = bufnr }
+      )
 
+      vim.keymap.set(
+        "n",
+        "<leader>ch",
+        function()
+          vim.cmd.RustLsp { "hover", "actions" }
+        end,
+        { desc = "Hover action" },
+        { buffer = bufnr }
+      )
+
+      vim.keymap.set(
+        "n",
+        "<leader>cb",
+        function()
+          vim.cmd.RustLsp { "runnables" }
+        end,
+        { desc = "[C]argo [B]uild" },
+        { buffer = bufnr }
+      )
+    end,
+    settings = {
       ["rust-analyzer"] = {
         imports = {
           granularity = {
