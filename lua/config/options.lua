@@ -86,3 +86,4 @@ vim.g.skip_ts_context_commentstring_module = true
 
 
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
