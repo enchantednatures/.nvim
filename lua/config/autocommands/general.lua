@@ -17,14 +17,14 @@ vim.on_key(toggle_hlsearch, ns)
 vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })
 
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "sql", "mysql", "plsql" },
-  callback = function()
-    local cmp = require("cmp")
-    cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
-  end,
-  group = augroups.attachDadbodCompletion
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "sql", "mysql", "plsql" },
+--   callback = function()
+--     local cmp = require("cmp")
+--     cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+--   end,
+--   group = augroups.attachDadbodCompletion
+-- })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
   group = augroups.fileOpened,

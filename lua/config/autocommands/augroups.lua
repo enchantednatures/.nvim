@@ -4,7 +4,6 @@ local function augroup(name, opts)
   return vim.api.nvim_create_augroup("nde_" .. name, opts)
 end
 
--- M.attachDadbodCompletion = augroup("AttachDadbodCompletion", { clear = true })
 M.autoCreateDirectory = augroup("AutoCreateDirectory", { clear = true })
 M.autoformat = augroup("AutoFormat", { clear = true })
 M.autorun = augroup("AutoRun", { clear = true })

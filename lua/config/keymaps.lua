@@ -60,12 +60,12 @@ keymap("v", ">", ">gv")
 keymap("v", "p", '"_dP')
 
 -- Move Lines
--- keymap("n", "<A-j>", ":m .+1<CR>==")
--- keymap("v", "<A-j>", ":m '>+1<CR>gv=gv")
--- keymap("n", "<A-k>", ":m .-2<CR>==")
--- keymap("v", "<A-k>", ":m '<-2<CR>gv=gv")
--- keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
--- keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
+keymap("n", "<M-j>", ":m .+1<CR>==")
+keymap("v", "<M-j>", ":m '>+1<CR>gv=gv")
+keymap("n", "<M-k>", ":m .-2<CR>==")
+keymap("v", "<M-k>", ":m '<-2<CR>gv=gv")
+keymap("i", "<M-j>", "<Esc>:m .+1<CR>==gi")
+keymap("i", "<M-k>", "<Esc>:m .-2<CR>==gi")
 
 -- Resize window using <shift> arrow keys
 keymap("n", "<S-Up>", "<cmd>resize +2<CR>")
@@ -73,8 +73,8 @@ keymap("n", "<S-Down>", "<cmd>resize -2<CR>")
 keymap("n", "<S-Left>", "<cmd>vertical resize -2<CR>")
 keymap("n", "<S-Right>", "<cmd>vertical resize +2<CR>")
 
-keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
+keymap("v", "J", ":m '>+1<CR>gv=gv")
 
 keymap("n", "J", "mzJ`z")
 keymap("n", "<C-u>", "<C-u>zz")

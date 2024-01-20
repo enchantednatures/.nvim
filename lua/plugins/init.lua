@@ -234,14 +234,25 @@ return {
     },
   },
   {
-    "tpope/vim-dadbod",
-    lazy = false,
+    "kristijanhusak/vim-dadbod-ui",
     dependencies = {
-      "kristijanhusak/vim-dadbod-ui",
+      { "tpope/vim-dadbod",                     lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
     config = function(_, _)
       vim.g.db_ui_show_help = 0
       vim.g.db_ui_win_position = "right"
+      vim.g.db_ui_auto_execute_table_helpers = 1
       vim.g.db_ui_use_nerd_fonts = 1
       vim.g.db_ui_winwidth = 45
       vim.g.db_ui_save_location = "~/.config/nvim/db_ui_history"
@@ -258,8 +269,6 @@ return {
       }
       vim.g.db_ui_save_location = vim.fn.stdpath "config" ..
           require("plenary.path").path.sep .. "db_ui"
-
-
     end,
   },
   {

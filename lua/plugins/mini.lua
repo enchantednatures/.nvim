@@ -8,14 +8,14 @@ return {
       require("mini.cursorword").setup()
     end
   },
-  {
-    "echasnovski/mini.move",
-    opts = {},
-    keys = { "<M-h>", "<M-l>", "<M-j>", "<M-k>" },
-    config = function(_, opts)
-      require("mini.move").setup(opts)
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.move",
+  --   opts = {},
+  --   keys = { "<M-h>", "<M-l>", "<M-j>", "<M-k>" },
+  --   config = function(_, opts)
+  --     require("mini.move").setup(opts)
+  --   end,
+  -- },
   {
     "echasnovski/mini.ai",
     keys = {
@@ -57,28 +57,5 @@ return {
     config = function(_, _)
       require("mini.animate").setup()
     end,
-  },
-  -- TODO: should I use mini comment instead of the other?
-  -- {
-  --   "echasnovski/mini.comment",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     hooks = {
-  --       pre = function()
-  --         require("ts_context_commentstring.internal").update_commentstring {}
-  --       end,
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     require("mini.comment").setup(opts)
-  --   end,
-  -- },
-  -- TODO: is mini pairs better than ... ?
-  -- {
-  --   "echasnovski/mini.pairs",
-  --   event = "VeryLazy",
-  --   config = function(_, opts)
-  --     require("mini.pairs").setup(opts)
-  --   end,
-  -- },
+  }
 }
