@@ -2,7 +2,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    config = function(_, opts)
+    config = function(_, _)
       local components = require "plugins.statusline.components"
       -- local copilot_cfg = {
       --   function()
@@ -20,7 +20,7 @@ return {
         options = {
           icons_enabled = true,
           theme = "auto",
-           
+
           component_separators = {},
           section_separators = {},
           disabled_filetypes = {

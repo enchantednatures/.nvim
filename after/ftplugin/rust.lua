@@ -1,3 +1,18 @@
+vim.cmd("compiler cargo")
+
+-- Make quickfix window show up automatically after compiling
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = "[^l]*",
+  command = "cwindow",
+  nested = true,
+})
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = "l*",
+  command = "lwindow",
+  nested = true,
+})
+
 vim.g.rustaceanvim = {
   dap = {},
 
