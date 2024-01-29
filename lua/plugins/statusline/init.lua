@@ -52,7 +52,8 @@ return {
             "encoding",
             "fileformat",
             "filetype",
-            "progress" },
+            -- "progress"
+          },
           lualine_y = {},
           lualine_z = { "location" },
         },

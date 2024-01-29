@@ -1,39 +1,32 @@
 return {
   "folke/noice.nvim",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
+  },
   event = "VeryLazy",
   enabled = true,
-  config = function()
-    require("noice").setup({})
-  end,
+  config = true,
   opts = {
     popupmenu = {
       -- cmp-cmdline has more sources and can be extended
       backend = "cmp", -- backend to use to show regular cmdline completions
     },
-    lsp = {
-      -- can not filter null-ls's data
-      -- j-hui/fidget.nvim
-      progress = {
-        enabled = false,
-      },
-    },
     messages = {
       -- Using kevinhwang91/nvim-hlslens because virtualtext is hard to read
       view_search = false,
     },
-    views = {
+    lsp = {
 
-      mini = {
-
-      }
+      progress = {
+        enabled = false,
+      },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
     },
-    -- lsp = {
-    --   override = {
-    --     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-    --     ["vim.lsp.util.stylize_markdown"] = true,
-    --     ["cmp.entry.get_documentation"] = true,
-    --   },
-    -- },
     presets = {
       bottom_search = true,         -- use a classic bottom cmdline for search
       command_palette = true,       -- position the cmdline and popupmenu together
