@@ -73,7 +73,7 @@ return {
     "nvimdev/lspsaga.nvim",
     lazy = false,
     keys = {
-      { "<M-CR>", "Lspsaga code_action code_action <CR>", "code_action" }
+      { "<M-CR>", ":Lspsaga code_action code_action <CR>", "code_action" }
 
     },
     config = function()
@@ -84,8 +84,6 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
       "nvim-tree/nvim-web-devicons",     -- optional
-
-
     }
   },
   {
@@ -96,13 +94,16 @@ return {
       "b0o/schemastore.nvim",
       {
         "j-hui/fidget.nvim",
-        tag = "legacy",
         event = "LspAttach",
         opts = {
-          -- options
+          notification = {
+            window = {
+              winblend = 0,
+              relative = "editor"
+            }
+          },
         },
       },
-
     },
     config = function()
       -- This is where you modify the settings for lsp-zero
@@ -120,13 +121,6 @@ return {
         vim.api.nvim_create_autocmd({ "BufEnter" }, {
           pattern = { "Cargo.toml" },
           callback = function(event)
-            local bufnr = event.buf
-
-            -- Register keymappings
-            -- local wk = require "which-key"
-            -- local keys = { mode = { "n", "v" }, ["<leader>lc"] = { name = "+Crates" } }
-            -- wk.register(keys)
-
             local map = function(mode, lhs, rhs, desc)
               if desc then
                 desc = desc
@@ -135,7 +129,7 @@ return {
                 mode,
                 lhs,
                 rhs,
-                { silent = true, desc = desc, buffer = bufnr, noremap = true }
+                { silent = true, desc = desc, buffer = event.buf, noremap = true }
               )
             end
             map("n", "<leader>lc", function() end, "+Crates")
@@ -224,7 +218,7 @@ return {
       })
 
       lspconfig.clangd.setup({
-        filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+        filetypes = { "c", "objc", "objcpp", "cuda" },
       })
 
       lsp_zero.skip_server_setup({ "rust_analyzer" })

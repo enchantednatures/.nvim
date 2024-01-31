@@ -12,6 +12,11 @@ return {
     priority = 1000,
     name = "rose-pine"
   },
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = false,
+    name = "nightfox"
+  },
   "nvim-lua/plenary.nvim",
   {
     "dstein64/vim-startuptime",
