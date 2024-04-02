@@ -1,7 +1,7 @@
 return {
   {
     "mrcjkb/rustaceanvim",
-    version = "^3", -- Recommended
+    version = "^4",
     ft = { "rust" },
   },
   {
@@ -27,10 +27,6 @@ return {
           nls.builtins.code_actions.gomodifytags,
           nls.builtins.code_actions.impl,
           nls.builtins.formatting.yamlfmt,
-          nls.builtins.formatting.fixjson,
-          nls.builtins.formatting.rustfmt.with({
-            extra_args = { "--edition=2021" }
-          }),
           nls.builtins.formatting.leptosfmt,
           -- nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
         },
@@ -40,16 +36,25 @@ return {
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
+    dependencies = {
+
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end
+      }
+    },
     build = ":Copilot auth",
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
         panel = {
-          enabled = true,
+          enabled = false,
           auto_refresh = true,
         },
         suggestion = {
-          enabled = true,
+          enabled = false,
           auto_trigger = true,
           accept = false, -- disable built-in keymapping
         },
@@ -342,6 +347,7 @@ return {
           }),
         }),
         sources = cmp.config.sources({
+          { name = "copilot", group_index = 2 },
           { name = "nvim_lsp_signature_help", group_index = 2 },
           { name = "nvim_lua",                group_index = 2 },
           { name = "nvim_lsp",                group_index = 2 },

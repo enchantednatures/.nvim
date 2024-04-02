@@ -8,6 +8,7 @@ return {
       dashboard.button("h", "󱡅 " .. " Harpoon Marks",
         [[:lua require("harpoon.ui").toggle_quick_menu() <cr>]]),
       dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+      dashboard.button("d", " " .. " Dad Bod", ":DBUI<CR>"),
       dashboard.button("p", "" .. " Pull Requests", ":Octo pr list <CR>"),
       dashboard.button("i", "" .. " Github Issues", ":Octo issue list <CR>"),
       dashboard.button("t", " " .. " Worktrees", ":Telescope git_worktree git_worktrees <CR>"),

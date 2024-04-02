@@ -20,7 +20,9 @@ return {
     cmd = { "Octo" },
     keys = {
       { "<leader>pr", "<cmd>Octo pr list <cr>", "List [P]ull [R]equests" },
-      { "<leader>gi", "<cmd>Octo issue list <cr>", "List [G]ull [I]equests" }
+      { "<leader>gp", "<cmd>Octo pr list <cr>", "List [P]ull [R]equests" },
+      { "<leader>gil", "<cmd>Octo issue list <cr>", "List [G]it [I]ssues [L]ist" },
+      { "<leader>gic", "<cmd>Octo issue create <cr>", "List [G]it [I]ssues [C]reate" }
     }
   },
   {

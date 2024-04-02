@@ -3,7 +3,11 @@ return {
     "mfussenegger/nvim-dap",
     lazy = true,
     dependencies = {
-      { "rcarriga/nvim-dap-ui" },
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = "nvim-neotest/nvim-nio",
+
+      },
       { "theHamsta/nvim-dap-virtual-text" },
       { "nvim-telescope/telescope-dap.nvim" },
       {

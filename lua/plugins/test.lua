@@ -98,11 +98,12 @@ return {
           require("neotest-vim-test")({
             ignore_file_types = { "python", "vim", "lua" },
           }),
-          require("neotest-rust") {
-            args = { "--no-capture" },
-            dap_adapter = "codelldb"
-          },
-          require("neotest-gtest")
+          -- require("neotest-rust") {
+          --   args = { "--no-capture" },
+          --   dap_adapter = "codelldb"
+          -- },
+          require("neotest-gtest"),
+          require("rustaceanvim.neotest")
         },
         -- overseer.nvim
         consumers = {
