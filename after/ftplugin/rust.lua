@@ -57,6 +57,8 @@ vim.g.rustaceanvim = {
         { desc = "[C]argo [B]uild" },
         { buffer = bufnr }
       )
+
+      vim.lsp.inlay_hint.enable()
     end,
     settings = {
       ["rust-analyzer"] = {
@@ -75,8 +77,8 @@ vim.g.rustaceanvim = {
         },
         checkOnSave = {
           allFeatures = true,
-          command = "clippy",
-          extraArgs = { "--no-deps" },
+          -- command = "clippy",
+          -- extraArgs = { "--no-deps" },
         },
         procMacro = {
           enable = true,
