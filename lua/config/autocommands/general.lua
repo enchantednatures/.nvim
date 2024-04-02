@@ -107,6 +107,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "toggleterm",
     "tsplayground",
     "vim",
+    "zsh"
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
