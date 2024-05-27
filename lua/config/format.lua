@@ -12,6 +12,11 @@ function M.format()
   local ft = vim.bo[buf].filetype
   local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
 
+  if ft == "rust" then
+    vim.cmd "%!rustfmt --edition 2021"
+    return
+  end
+
   vim.lsp.buf.format {
     bufnr = buf,
     filter = function(client)

@@ -77,8 +77,8 @@ vim.g.rustaceanvim = {
         },
         checkOnSave = {
           allFeatures = true,
-          -- command = "clippy",
-          -- extraArgs = { "--no-deps" },
+          command = "clippy",
+          extraArgs = { "--no-deps" },
         },
         procMacro = {
           enable = true,

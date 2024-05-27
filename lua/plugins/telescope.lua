@@ -60,7 +60,6 @@ return {
         }
       },
       "stevearc/aerial.nvim",
-      "nvim-telescope/telescope-frecency.nvim",
       {
         "lpoto/telescope-docker.nvim",
         opts = {},
@@ -113,11 +112,6 @@ return {
         "<cmd>Telescope git_worktree git_worktrees <cr>",
         desc =
         "Git Work[t]ree"
-      },
-      {
-        "<leader>te",
-        "<cmd>Telescope frecency theme=dropdown previewer=false<cr>",
-        desc = "Common (FRecent)"
       },
       {
         "<leader><tab>",
@@ -332,7 +326,6 @@ return {
       telescope.load_extension("projects")
       telescope.load_extension("aerial")
       telescope.load_extension("dap")
-      telescope.load_extension("frecency")
       telescope.load_extension("menufacture")
       telescope.load_extension("conventional_commits")
       telescope.load_extension("undo")
@@ -341,8 +334,6 @@ return {
       telescope.load_extension("gh")
       telescope.load_extension("tmux")
       telescope.load_extension("ui-select")
-      -- telescope.load_extension("terraform_doc")
-      -- telescope.load_extension("ultisnips")
     end,
   },
   {
@@ -357,5 +348,5 @@ return {
         patterns = { ".git" },
       })
     end,
-  },
+  }
 }

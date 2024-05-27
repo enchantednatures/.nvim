@@ -409,14 +409,6 @@ return {
     "folke/neoconf.nvim"
   },
   {
-    "jtdowney/vimux-cargo",
-    lazy = false,
-    dependencies =
-    {
-      "preservim/vimux",
-    }
-  },
-  {
     "ggandor/leap.nvim",
     event = "VeryLazy",
     dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },

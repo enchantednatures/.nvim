@@ -26,7 +26,7 @@ sign({ name = "DiagnosticSignInfo", text = "" })
 
 vim.diagnostic.config({
   virtual_text = false,
-  virtual_lines = true,
+  virtual_lines = { only_current_line = true },
   signs = true,
   update_in_insert = true,
   underline = true,

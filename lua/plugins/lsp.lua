@@ -347,7 +347,7 @@ return {
           }),
         }),
         sources = cmp.config.sources({
-          { name = "copilot", group_index = 2 },
+          { name = "copilot",                 group_index = 2 },
           { name = "nvim_lsp_signature_help", group_index = 2 },
           { name = "nvim_lua",                group_index = 2 },
           { name = "nvim_lsp",                group_index = 2 },
@@ -504,11 +504,9 @@ return {
         opts = {
           ensure_installed = {
             "sqlls",
-            "sqlfmt",
             "lua-language-server",
-            "debugpy",
-            "typescript-language-server",
             "codelldb",
+            "jq",
             "stylua",
             "impl",
           },
